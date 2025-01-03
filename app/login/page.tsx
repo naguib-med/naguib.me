@@ -2,9 +2,6 @@
 
 import Link from 'next/link';
 import { LoginForm } from '@/components/auth/login-form';
-import { Button } from '@/components/ui/button';
-import { signIn } from 'next-auth/react';
-
 export default function LoginPage() {
     return (
         <div className="container flex h-screen w-screen flex-col items-center justify-center">
@@ -21,21 +18,6 @@ export default function LoginPage() {
                         Don&apos;t have an account? Sign Up
                     </Link>
                 </p>
-
-                <div className="flex items-center space-x-4">
-                    <hr className="w-full" />
-                    <p className="text-sm text-muted-foreground">OR</p>
-                    <hr className="w-full" />
-                </div>
-                <div className="flex flex-col space-y-4">
-                    <Button onClick={() => signIn('google')} className="w-full">
-                        Sign in with Google
-                    </Button>
-
-                    <Button onClick={() => signIn('github')} className="w-full">
-                        Sign in with GitHub
-                    </Button>
-                </div>
             </div>
         </div>
     );

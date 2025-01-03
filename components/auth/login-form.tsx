@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -56,8 +56,17 @@ export function LoginForm() {
             return;
         }
 
-        router.push('/');
-        router.refresh();
+        router.push("/");
+    }
+
+    async function onSocialSignIn(provider: string) {
+        setIsLoading(true);
+        await signIn(provider, {
+            redirect: false,
+            redirectTo: '/',
+
+        });
+        setIsLoading(false);
     }
 
     return (
@@ -99,6 +108,22 @@ export function LoginForm() {
                     {isLoading ? 'Signing in...' : 'Sign in'}
                 </Button>
             </form>
+            <div className="flex items-center space-x-4">
+                <hr className="w-full" />
+                <p className="text-sm text-muted-foreground">OR</p>
+                <hr className="w-full" />
+            </div>
+            <div className="flex flex-col space-y-4">
+                <Button
+                    variant="outline"
+                    onClick={() => signIn("google", { callbackUrl: "/" })}
+                >
+                    Continue with Google
+                </Button>
+                <Button onClick={() => onSocialSignIn('github')} className="w-full">
+                    Sign in with GitHub
+                </Button>
+            </div>
         </Form>
     );
 }
