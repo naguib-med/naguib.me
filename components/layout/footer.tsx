@@ -37,7 +37,6 @@ const socialLinks = [
   },
 ];
 
-
 const footerLinks = [
   {
     title: "Navigation",
