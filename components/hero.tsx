@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { MagneticButton } from "@/components/magnetic-button";
-import { ParticleCanvas } from "@/components/particle-canvas";
 
 export function Hero() {
   const { scrollY } = useScroll();

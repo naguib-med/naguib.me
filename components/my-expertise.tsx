@@ -9,8 +9,6 @@ import {
   Shield,
   Layers,
   Workflow,
-  Zap,
-  Cpu,
   Rocket,
 } from "lucide-react";
 
