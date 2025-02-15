@@ -37,10 +37,6 @@ const socialLinks = [
   },
 ];
 
-const copyright = {
-  text: "Copyright © 2024 Naguib Med Mahamoud. All rights reserved.",
-};
-
 const footerLinks = [
   {
     title: "Navigation",
