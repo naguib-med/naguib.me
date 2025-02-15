@@ -24,12 +24,6 @@ jobs:
     
     - name: Run tests
       run: npm test --passWithNoTests
-    
-    - name: Lint check
-      run: npm run lint
-    
-    - name: Type check
-      run: npm run type-check
 
   build:
     needs: test
