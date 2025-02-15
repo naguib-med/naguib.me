@@ -1,27 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Syne, Space_Grotesk } from 'next/font/google';
 import "./globals.css";
-import { SessionProvider } from "next-auth/react"
+import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const syne = Syne({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-syne" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-space-grotesk" });
 
 export const metadata: Metadata = {
-  title: 'Naguib - Portfolio & Blog',
-  description: 'Personal portfolio and blog showcasing my work and thoughts on technology',
-  keywords: ['portfolio', 'blog', 'web development', 'software engineer'],
-}
+  title: "Naguib - Portfolio & Blog",
+  description:
+    "Personal portfolio and blog showcasing my work and thoughts on technology",
+  keywords: ["portfolio", "blog", "web development", "software engineer"],
+};
 
 export default function RootLayout({
   children,
@@ -30,10 +23,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <SessionProvider>
+      <body className={`${syne.variable} ${spaceGrotesk.variable} antialiased`}>
+      <SessionProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
