@@ -23,22 +23,27 @@ export function ParticleCanvas() {
         }> = []
 
         const resize = () => {
-            canvas.width = window.innerWidth
-            canvas.height = window.innerHeight
+            const pixelRatio = window.devicePixelRatio || 1
+            const rect = canvas.getBoundingClientRect()
+            
+            canvas.width = rect.width * pixelRatio
+            canvas.height = rect.height * pixelRatio
+            
+            ctx.scale(pixelRatio, pixelRatio)
         }
 
         const createParticles = () => {
             particles = []
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000)
+            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 5000)
 
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    radius: Math.random() * 1 + 0.5,
-                    vx: Math.random() * 0.2 - 0.1,
-                    vy: Math.random() * 0.2 - 0.1,
-                    alpha: Math.random() * 0.5 + 0.2,
+                    radius: Math.random() * 2 + 1, 
+                    vx: Math.random() * 0.5 - 0.25, 
+                    vy: Math.random() * 0.5 - 0.25,
+                    alpha: Math.random() * 0.7 + 0.3,
                 })
             }
         }
@@ -57,7 +62,7 @@ export function ParticleCanvas() {
 
                 ctx.beginPath()
                 ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-                ctx.fillStyle = `rgba(var(--primary-rgb), ${particle.alpha})`
+                ctx.fillStyle = `rgba(255, 255, 255, ${particle.alpha})`
                 ctx.fill()
             })
 
@@ -84,7 +89,13 @@ export function ParticleCanvas() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className="fixed inset-0 -z-10"
+            className="fixed inset-0 h-full w-full pointer-events-none"
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                pointerEvents: 'none',
+            }}
         />
     )
 }
