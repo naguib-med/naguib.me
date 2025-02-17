@@ -58,12 +58,12 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="bg-gradient-to-b from-foreground to-foreground/80 bg-clip-text text-center text-4xl font-bold tracking-tight text-transparent sm:text-5xl md:text-6xl lg:text-7xl"
             >
-              Engineering
+              Ingénierie
               <br />
               <span className="relative">
                 <span className="absolute -inset-1 block animate-[pulse_4s_ease-in-out_infinite] rounded-lg bg-gradient-to-r from-primary via-violet-500 to-blue-500 opacity-30 blur-xl" />
                 <span className="relative bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
-                  Secure Solutions
+                  Solutions Sécurisées
                 </span>
               </span>
             </motion.h1>
@@ -74,8 +74,7 @@ export function Hero() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mx-auto max-w-[42rem] text-muted-foreground sm:text-lg md:text-xl"
             >
-              Security-minded Fullstack Developer building robust web
-              applications with React & Node.js/Spring Boot.
+              Développeur Fullstack axé sur la sécurité, créant des applications web robustes avec React & Node.js/Spring Boot.
             </motion.p>
           </div>
 
@@ -91,7 +90,7 @@ export function Hero() {
                 className="group relative h-14 overflow-hidden rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 px-8 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_8px_rgba(124,58,237,0.3)]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  View Portfolio
+                  Voir mon Portfolio
                   <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Button>
@@ -104,7 +103,7 @@ export function Hero() {
                 className="group relative h-14 overflow-hidden rounded-full border-primary/20 px-8 transition-all duration-300 hover:scale-105 hover:border-primary/40 hover:bg-primary/5"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Read Blog
+                  Lire mon Blog
                   <Newspaper className="h-4 w-4 transition-transform group-hover:scale-110" />
                 </span>
               </Button>
@@ -118,9 +117,9 @@ export function Hero() {
             className="flex items-center gap-8 rounded-2xl border border-primary/10 bg-background/50 px-8 py-4 backdrop-blur-sm"
           >
             {[
-              { label: "Projects", value: "5+" },
-              { label: "Blog Posts", value: "+2" },
-              { label: "Experience", value: "2+ Years" },
+              { label: "Projets", value: "5+" },
+              { label: "Articles de Blog", value: "+2" },
+              { label: "Expérience", value: "2+ Ans" },
             ].map((stat, i) => (
               <div key={stat.label} className="flex items-center gap-4">
                 {i > 0 && <div className="h-8 w-[1px] bg-primary/10" />}
@@ -145,7 +144,7 @@ export function Hero() {
         >
           <div className="flex flex-col items-center gap-2">
             <div className="text-sm text-muted-foreground">
-              Scroll to explore
+              Faites défiler pour explorer
             </div>
             <motion.div
               animate={{
