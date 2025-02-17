@@ -41,7 +41,7 @@ export function CallToAction() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
-            Let's Create Together
+            Let&apos;s Create Together
           </motion.h2>
 
           <motion.p
@@ -55,7 +55,7 @@ export function CallToAction() {
             }}
             className="mt-4 text-muted-foreground max-w-xl mx-auto"
           >
-            Have a project in mind? Let's bring your vision to life.
+            Have a project in mind? Let&apos;s bring your vision to life.
           </motion.p>
 
           <motion.div
