@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { MagneticButton } from "@/components/magnetic-button";
-import { ParticleCanvas } from "@/components/particle-canvas";
 
 export function Hero() {
   const { scrollY } = useScroll();
@@ -30,9 +29,7 @@ export function Hero() {
       ref={heroRef}
       className="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-background via-background/95 to-background/90"
     >
-      <ParticleCanvas />
-
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
 
       <motion.div
