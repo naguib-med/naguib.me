@@ -61,9 +61,9 @@ const footerLinks = [
 export function Footer() {
   return (
     <div className="relative overflow-hidden border-t border-primary/10">
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/90 backdrop-blur-sm" />
-
+      <div className="absolute inset-0 bg-grid-pattern bg-grid" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background/30 backdrop-blur-sm" />
+      
       <div className="container relative space-y-12 py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">

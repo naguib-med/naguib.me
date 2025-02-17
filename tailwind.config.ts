@@ -16,6 +16,13 @@ export default {
       },
     },
     extend: {
+      backgroundImage: {
+        'grid-pattern': `linear-gradient(to right, #4f4f4f2e 1px, transparent 1px),
+                         linear-gradient(to bottom, #4f4f4f2e 1px, transparent 1px)`,
+      },
+      backgroundSize: {
+        'grid': '50px 50px',
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

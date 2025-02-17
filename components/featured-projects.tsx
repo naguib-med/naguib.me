@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { ArrowRight, ExternalLink, Github, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -35,27 +35,41 @@ const projects = [
   },
 ];
 
+function useParallax(value: MotionValue<number>, distance: number) {
+  return useTransform(value, [0, 1], [-distance, distance]);
+}
+
 export function FeaturedProjects() {
-  const [workRef, workInView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useParallax(scrollYProgress, 50);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0]
+  );
 
   return (
-    <section
-      ref={workRef}
+    <motion.section
+      ref={ref}
+      style={{ opacity }}
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background/90" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background/30" />
 
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={workInView ? { opacity: 1 } : {}}
-        transition={{ duration: 0.8 }}
+        style={{ y }}
         className="container relative space-y-12"
       >
         <div className="mx-auto max-w-2xl text-center">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
-            animate={workInView ? { y: 0, opacity: 1 } : {}}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary"
           >
@@ -64,7 +78,7 @@ export function FeaturedProjects() {
           </motion.div>
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
-            animate={workInView ? { y: 0, opacity: 1 } : {}}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
@@ -72,7 +86,7 @@ export function FeaturedProjects() {
           </motion.h2>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
-            animate={workInView ? { y: 0, opacity: 1 } : {}}
+            whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-muted-foreground"
           >
@@ -81,16 +95,28 @@ export function FeaturedProjects() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, i) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ y: 20, opacity: 0 }}
-              animate={workInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-background via-background/95 to-background/90 p-[1px] shadow-2xl"
+              initial={{ y: 50, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100,
+              }}
+              className="group perspective-1000"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative h-full overflow-hidden rounded-[calc(1.5rem-1px)] bg-background">
+              <motion.div
+                whileHover={{
+                  scale: 1.05,
+                  rotateX: 5,
+                  rotateY: -5,
+                  transition: { duration: 0.3 },
+                }}
+                className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-background/10 to-background/5 border border-transparent transition-all duration-300 hover:border-primary/30 shadow-xl hover:shadow-2xl"
+              >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={project.image}
@@ -101,9 +127,9 @@ export function FeaturedProjects() {
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 </div>
 
-                <div className="space-y-4 p-6">
+                <div className="p-6 space-y-4">
                   <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground line-clamp-3">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -116,7 +142,7 @@ export function FeaturedProjects() {
                       </span>
                     ))}
                   </div>
-                  <div className="flex gap-4 pt-4">
+                  <div className="flex gap-4 pt-4 border-t border-border/20">
                     <Link
                       href={project.demoUrl}
                       className="group/link flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -133,7 +159,7 @@ export function FeaturedProjects() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -159,6 +185,6 @@ export function FeaturedProjects() {
           </MagneticButton>
         </div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 }
