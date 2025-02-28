@@ -1,12 +1,9 @@
-export const runtime = "nodejs";
-
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import { compare } from "bcryptjs";
 import type { User } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
+import GitHubProvider from "next-auth/providers/github";
 import type { Session } from "next-auth";
 
 interface ExtendedSession extends Session {
@@ -21,33 +18,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       clientSecret: process.env.AUTH_GOOGLE_SECRET!,
       allowDangerousEmailAccountLinking: true,
     }),
-    CredentialsProvider({
-      id: "credentials",
-      name: "Credentials",
-      credentials: {
-        email: {
-          label: "Email",
-          type: "email",
-        },
-        password: {
-          label: "Password",
-          type: "password",
-        },
-      },
-      async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
-        if (!email || !password) return null;
-        const user = await prisma.user.findUnique({
-          where: { email },
-        });
-        if (!user || !user.password) return null;
-        const isPasswordValid = compare(password, user.password);
-        if (!isPasswordValid) return null;
-        return user;
-      },
+    GitHubProvider({
+      clientId: process.env.AUTH_GITHUB_ID!,
+      clientSecret: process.env.AUTH_GITHUB_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   pages: {
