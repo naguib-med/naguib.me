@@ -125,7 +125,7 @@ export function MyExpertise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-muted-foreground"
           >
-            Solutions innovantes à l'intersection de la technologie et de la créativité
+            Solutions innovantes à l&apos;intersection de la technologie et de la créativité
           </motion.p>
         </div>
 
