@@ -65,7 +65,7 @@ export function Footer() {
     <div className="relative overflow-hidden border-t border-primary/10">
       <div className="absolute inset-0 bg-grid-pattern bg-grid" />
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background/30 backdrop-blur-sm" />
-      
+
       <div className="container relative space-y-12 py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -81,7 +81,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Ingénieur Fullstack | +2 ans d'expérience dans le développement de logiciels | Aspirant DevSecOps | Passionné par la sécurité des logiciels | Code sécurisé par conception
+              Ingénieur Fullstack | +2 ans d&apos;expérience dans le développement de logiciels | Aspirant DevSecOps | Passionné par la sécurité des logiciels | Code sécurisé par conception
             </p>
             <div className="flex gap-2">
               {socialLinks.map((link) => {
@@ -143,7 +143,7 @@ export function Footer() {
                 className="w-full rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_4px_rgba(124,58,237,0.3)]"
               >
                 <span className="flex items-center gap-2">
-                  S'abonner
+                  S&apos;abonner
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Button>
