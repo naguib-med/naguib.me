@@ -41,7 +41,7 @@ export function CallToAction() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
-            Let&apos;s Create Together
+            Créons Ensemble
           </motion.h2>
 
           <motion.p
@@ -55,7 +55,8 @@ export function CallToAction() {
             }}
             className="mt-4 text-muted-foreground max-w-xl mx-auto"
           >
-            Have a project in mind? Let&apos;s bring your vision to life.
+            Un projet en tête ? Ensemble, donnons vie à votre vision.
+            Transformons vos idées innovantes en solutions numériques puissantes.
           </motion.p>
 
           <motion.div
@@ -80,7 +81,7 @@ export function CallToAction() {
                   href="/contact"
                   className="relative z-10 flex items-center gap-2"
                 >
-                  Start a Project
+                  Démarrer un Projet
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
