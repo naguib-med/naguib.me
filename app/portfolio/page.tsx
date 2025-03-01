@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/page-header";
 import { ProjectFilter } from "@/components/portfolio/project-filter";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { LayoutGrid, List } from "lucide-react";
 
 const projects = [
     {
@@ -35,6 +37,7 @@ const projects = [
 
 export default function PortfolioPage() {
     const [selectedTech, setSelectedTech] = useState<string[]>([]);
+    const [view, setView] = useState<'grid' | 'list'>('grid');
 
     const filteredProjects = projects.filter(project =>
         selectedTech.length === 0 ||
@@ -49,25 +52,45 @@ export default function PortfolioPage() {
                 gradient="from-primary/80 via-primary to-primary/60"
             />
 
-            <div className="container py-24 md:py-32">
+            <motion.div className="container py-12 md:py-20 mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     className="mb-12 flex flex-col items-start space-y-6"
                 >
-                    <div className="flex w-full items-center justify-between">
-                        <motion.h2
-                            className="text-2xl font-semibold tracking-tight"
-                            layout
-                        >
-                            {filteredProjects.length} {filteredProjects.length === 1 ? 'Projet' : 'Projets'}
-                            {selectedTech.length > 0 && (
-                                <span className="text-muted-foreground">
-                                    {' '}Filtrés
-                                </span>
-                            )}
-                        </motion.h2>
+                    <div className="flex w-full items-center justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                            <motion.h2
+                                className="text-2xl font-semibold tracking-tight"
+                                layout
+                            >
+                                {filteredProjects.length} {filteredProjects.length === 1 ? 'Projet' : 'Projets'}
+                                {selectedTech.length > 0 && (
+                                    <span className="text-muted-foreground">
+                                        {' '}Filtrés
+                                    </span>
+                                )}
+                            </motion.h2>
+                            <div className="hidden md:flex items-center gap-1 border rounded-lg">
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className={view === 'grid' ? 'bg-muted' : ''}
+                                    onClick={() => setView('grid')}
+                                >
+                                    <LayoutGrid className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className={view === 'list' ? 'bg-muted' : ''}
+                                    onClick={() => setView('list')}
+                                >
+                                    <List className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -90,7 +113,10 @@ export default function PortfolioPage() {
                     )}
                 </motion.div>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div className={`grid gap-8 ${view === 'grid'
+                    ? 'md:grid-cols-2 lg:grid-cols-3'
+                    : 'grid-cols-1 max-w-3xl mx-auto'
+                    }`}>
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, index) => (
                             <motion.div
@@ -99,11 +125,16 @@ export default function PortfolioPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
-                                transition={{ duration: 0.3, delay: index * 0.1 }}
+                                transition={{
+                                    duration: 0.3,
+                                    delay: index * 0.1,
+                                    layout: { duration: 0.3 }
+                                }}
                             >
                                 <ProjectCard
                                     project={project}
                                     index={index}
+                                    variant={view}
                                 />
                             </motion.div>
                         ))}
@@ -129,7 +160,7 @@ export default function PortfolioPage() {
                         </motion.button>
                     </motion.div>
                 )}
-            </div>
+            </motion.div>
         </div>
     );
 }

@@ -15,9 +15,10 @@ interface ProjectCardProps {
         githubUrl: string;
     };
     index?: number;
+    variant?: 'grid' | 'list';
 }
 
-export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+export function ProjectCard({ project, index = 0, variant = 'grid' }: ProjectCardProps) {
     return (
         <motion.div
             initial={{ y: 50, opacity: 0 }}
@@ -32,14 +33,18 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         >
             <motion.div
                 whileHover={{
-                    scale: 1.05,
-                    rotateX: 5,
-                    rotateY: -5,
+                    scale: variant === 'grid' ? 1.05 : 1.02,
+                    rotateX: variant === 'grid' ? 5 : 0,
+                    rotateY: variant === 'grid' ? -5 : 0,
                     transition: { duration: 0.3 },
                 }}
-                className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-background/10 to-background/5 border border-transparent transition-all duration-300 hover:border-primary/30 shadow-xl hover:shadow-2xl"
+                className={`relative overflow-hidden rounded-3xl bg-gradient-to-br from-background/10 to-background/5 border border-transparent transition-all duration-300 hover:border-primary/30 shadow-xl hover:shadow-2xl ${variant === 'list' ? 'flex gap-6' : ''
+                    }`}
             >
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className={`relative overflow-hidden ${variant === 'grid'
+                        ? 'aspect-[16/10]'
+                        : 'aspect-[4/3] w-48 shrink-0'
+                    }`}>
                     <Image
                         src={project.image}
                         alt={project.title}
@@ -49,20 +54,26 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 </div>
 
-                <div className="p-6 space-y-4">
-                    <h3 className="text-xl font-semibold">{project.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3">
-                        {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
-                            >
-                                {tag}
-                            </span>
-                        ))}
+                <div className={`flex flex-col ${variant === 'grid'
+                        ? 'p-6 space-y-4'
+                        : 'p-6 flex-1 justify-between'
+                    }`}>
+                    <div className="space-y-4">
+                        <h3 className="text-xl font-semibold">{project.title}</h3>
+                        <p className={`text-sm text-muted-foreground ${variant === 'grid' ? 'line-clamp-3' : ''
+                            }`}>
+                            {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                            {project.tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                     <div className="flex gap-4 pt-4 border-t border-border/20">
                         <Link
