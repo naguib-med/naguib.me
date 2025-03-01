@@ -7,17 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { Code, Menu, X, ChevronRight, User } from "lucide-react"
-import { useSession, signOut } from "next-auth/react";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { Code, Menu, X, ChevronRight } from "lucide-react"
 
 const navigation = [
     { name: "Home", href: "/" },
@@ -28,7 +18,6 @@ const navigation = [
 ]
 
 export function Header() {
-    const { data: session } = useSession()
     const pathname = usePathname()
     const [isScrolled, setIsScrolled] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -41,24 +30,13 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-
-    const handleSignOut = async () => {
-        try {
-            await signOut({
-                redirect: false
-            })
-        } catch (error) {
-            console.error("Error signing out:", error)
-        }
-    }
-
     return (
         <header
             className={cn(
                 "fixed left-0 top-0 z-50 w-full transition-all duration-300",
                 isScrolled
                     ? "bg-background/80 backdrop-blur-xl shadow-[0_0_15px_0_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_0_rgba(0,0,0,0.3)]"
-                    : "bg-transparent"
+                    : "bg-transparent"  
             )}
         >
             <nav className="container flex h-20 items-center justify-between">
@@ -110,63 +88,14 @@ export function Header() {
                     ))}
                     <div className="ml-4 flex items-center gap-2">
                         <ThemeToggle />
-                        {session ? (
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="ghost"
-                                        className="relative h-9 w-9 rounded-full"
-                                    >
-                                        {session.user?.image ? (
-                                            <Avatar className="h-8 w-8">
-                                                <AvatarImage
-                                                    src={session.user.image || ""}
-                                                    alt={session.user.name || "Profile"}
-                                                />
-                                                <AvatarFallback>{session.user.name?.[0]}</AvatarFallback>
-                                            </Avatar>
-                                        ) : (
-                                            <User className="h-5 w-5" />
-                                        )}
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <div className="flex items-center justify-start gap-2 p-2">
-                                        <div className="flex flex-col space-y-1">
-                                            <p className="text-sm font-medium">
-                                                {session.user?.name}
-                                            </p>
-                                            <p className="text-xs text-muted-foreground">
-                                                {session.user?.email}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem asChild>
-                                        <Link href="/dashboard">Dashboard</Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem asChild>
-                                        <Link href="/settings">Settings</Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem
-                                        className="text-red-600 focus:bg-red-50 focus:text-red-600"
-                                        onClick={() => handleSignOut()}
-                                    >
-                                        Log out
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        ) : (
-                            <Button
-                                className="group relative h-9 overflow-hidden rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 px-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_4px_rgba(124,58,237,0.3)]"
-                            >
-                                <span className="relative z-10 flex items-center gap-1 text-sm">
-                                    Hire Me
-                                    <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                                </span>
-                            </Button>
-                        )}
+                        <Button
+                            className="group relative h-9 overflow-hidden rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 px-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_4px_rgba(124,58,237,0.3)]"
+                        >
+                            <span className="relative z-10 flex items-center gap-1 text-sm">
+                                Hire Me
+                                <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                            </span>
+                        </Button>
                     </div>
                 </div>
 

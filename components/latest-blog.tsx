@@ -22,32 +22,32 @@ function useParallax(value: MotionValue<number>, distance: number) {
 
 const blogPosts = [
   {
-    title: "L'Art de l'Architecture Frontale Évolutive",
-    excerpt: "Concevoir des applications web modulaires et performantes qui grandissent avec vos ambitions.",
+    title: "The Art of Scalable Frontend Architecture",
+    excerpt: "Designing modular, performant web applications that grow with your ambitions.",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     category: "Architecture",
-    date: "15 mars 2024",
-    readTime: "7 min de lecture",
+    date: "Mar 15, 2024",
+    readTime: "7 min read",
     link: "/blog/frontend-architecture",
     mainIcon: Code
   },
   {
-    title: "Flux de Travail de Développement Piloté par l'IA",
-    excerpt: "Révolutionner l'ingénierie logicielle avec des outils et des pratiques de développement intelligents.",
+    title: "AI-Driven Development Workflows",
+    excerpt: "Revolutionizing software engineering with intelligent development tools and practices.",
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "IA & Productivité",
-    date: "12 mars 2024",
-    readTime: "6 min de lecture",
+    category: "AI & Productivity",
+    date: "Mar 12, 2024",
+    readTime: "6 min read",
     link: "/blog/ai-dev-workflows",
     mainIcon: Brain
   },
   {
-    title: "Next.js 14 : Exploration en Profondeur des Composants Serveur",
-    excerpt: "Explorer le pouvoir transformateur du rendu côté serveur et de l'architecture des composants.",
+    title: "Next.js 14: Deep Dive into Server Components",
+    excerpt: "Exploring the transformative power of server-side rendering and component architecture.",
     image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Développement Web",
-    date: "10 mars 2024",
-    readTime: "8 min de lecture",
+    category: "Web Development",
+    date: "Mar 10, 2024",
+    readTime: "8 min read",
     link: "/blog/nextjs-server-components",
     mainIcon: Layers
   }
@@ -88,7 +88,7 @@ export default function LatestBlog() {
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary"
           >
             <Newspaper className="h-4 w-4" />
-            Articles Récents
+            Latest Blog
           </motion.div>
 
           <motion.h2
@@ -97,7 +97,7 @@ export default function LatestBlog() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
-            Mes Réflexions Techniques
+            Tech Chronicles
           </motion.h2>
 
           <motion.p
@@ -106,7 +106,7 @@ export default function LatestBlog() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-muted-foreground"
           >
-            Explorations et perspectives sur les dernières tendances en développement web et technologies émergentes.
+            Exploring the intersection of innovation, technology, and design
           </motion.p>
         </div>
 
@@ -177,7 +177,7 @@ export default function LatestBlog() {
                         {post.date}
                       </span>
                       <div className="flex items-center text-primary hover:text-primary/80 transition-colors">
-                        <span className="text-sm font-medium mr-2 group-hover:translate-x-1 transition-transform">Lire la suite</span>
+                        <span className="text-sm font-medium mr-2 group-hover:translate-x-1 transition-transform">Read more</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
@@ -196,7 +196,7 @@ export default function LatestBlog() {
               className="group relative h-12 overflow-hidden rounded-full border-primary/20 px-8"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Voir Tous les Articles
+                View All Posts
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
               <motion.div
