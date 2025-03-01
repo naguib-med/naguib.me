@@ -4,34 +4,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, ExternalLink, Github, Code } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/magnetic-button";
 
 const projects = [
   {
-    title: "Portfolio Alimenté par IA",
-    description: "Portfolio Next.js avec génération de contenu pilotée par IA",
-    image:
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "AI-Powered Portfolio",
+    description: "Next.js portfolio with AI-driven content generation",
+    image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     tags: ["Next.js", "OpenAI", "Tailwind"],
     demoUrl: "#",
     githubUrl: "#",
   },
   {
-    title: "Plateforme de Blog Créative",
-    description: "Blog moderne avec contenu dynamique et animations",
-    image:
-      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "Creative Blog Platform",
+    description: "Modern blog with dynamic content and animations",
+    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     tags: ["React", "MDX", "Framer Motion"],
     demoUrl: "#",
     githubUrl: "#",
   },
   {
-    title: "CV Interactif",
-    description: "Expérience de CV alimentée par WebGL",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    title: "Interactive Resume",
+    description: "WebGL-powered interactive resume experience",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     tags: ["Three.js", "GSAP", "TypeScript"],
     demoUrl: "#",
     githubUrl: "#",
@@ -50,7 +47,11 @@ export function FeaturedProjects() {
   });
 
   const y = useParallax(scrollYProgress, 50);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.8, 1],
+    [0, 1, 1, 0]
+  );
 
   return (
     <motion.section
@@ -61,7 +62,10 @@ export function FeaturedProjects() {
       <div className="absolute inset-0 bg-grid-pattern bg-grid" />
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background/30" />
 
-      <motion.div style={{ y }} className="container relative space-y-12">
+      <motion.div
+        style={{ y }}
+        className="container relative space-y-12"
+      >
         <div className="mx-auto max-w-2xl text-center">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
@@ -69,8 +73,8 @@ export function FeaturedProjects() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary"
           >
-            <Code className="h-4 w-4" />
-            Portfolio
+            <Star className="h-4 w-4" />
+            Featured Projects
           </motion.div>
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
@@ -78,7 +82,7 @@ export function FeaturedProjects() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
-            Projets Récents
+            Latest Work
           </motion.h2>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
@@ -86,8 +90,7 @@ export function FeaturedProjects() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-muted-foreground"
           >
-            Découvrez une sélection de mes derniers projets, mettant en valeur
-            mes compétences en développement web.
+            A selection of my recent projects and creative endeavors
           </motion.p>
         </div>
 
@@ -145,14 +148,14 @@ export function FeaturedProjects() {
                       className="group/link flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                     >
                       <ExternalLink className="h-4 w-4 transition-transform group-hover/link:scale-110" />
-                      Demo
+                      Live Preview
                     </Link>
                     <Link
                       href={project.githubUrl}
                       className="group/link flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                     >
                       <Github className="h-4 w-4 transition-transform group-hover/link:scale-110" />
-                      Code
+                      Source Code
                     </Link>
                   </div>
                 </div>
@@ -169,7 +172,7 @@ export function FeaturedProjects() {
               className="group relative h-12 overflow-hidden rounded-full border-primary/20 px-8"
             >
               <span className="relative z-10 flex items-center gap-2">
-                Voir Tous les Projets
+                View All Projects
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
               <motion.div
