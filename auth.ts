@@ -1,18 +1,58 @@
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
+import type { User } from "@prisma/client";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
+import type { Session } from "next-auth";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  secret: process.env.NEXTAUTH_SECRET,
+interface ExtendedSession extends Session {
+  accessToken?: string;
+}
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID!,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
+      allowDangerousEmailAccountLinking: true,
+    }),
+    GitHubProvider({
+      clientId: process.env.AUTH_GITHUB_ID!,
+      clientSecret: process.env.AUTH_GITHUB_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
-  debug: process.env.NODE_ENV === "development",
-
   pages: {
-    signIn: "/login",
+    signIn: "/auth/signin",
     error: "/auth/error",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET!,
+  callbacks: {
+    async session({ session, token }): Promise<ExtendedSession> {
+      return {
+        ...session,
+        accessToken: token.accessToken as string,
+        user: {
+          ...session.user,
+          id: token.sub,
+        },
+      };
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        const u = user as User & { role: string };
+        return {
+          ...token,
+          id: u.id,
+          role: u.role,
+        };
+      }
+      return token;
+    },
   },
 });

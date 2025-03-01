@@ -15,28 +15,28 @@ import {
 const expertiseAreas = [
   {
     icon: Code,
-    title: "Frontend Mastery",
+    title: "Maîtrise du Frontend",
     description:
-      "Crafting immersive, pixel-perfect web experiences with cutting-edge technologies.",
+      "Création d'expériences web immersives et parfaites au pixel avec des technologies de pointe.",
     skills: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"],
     color: "text-blue-500",
     accentColor: "bg-blue-500/10 hover:bg-blue-500/20",
   },
   {
     icon: Server,
-    title: "Backend Architecture",
+    title: "Architecture Backend",
     description:
-      "Designing scalable, secure server-side solutions with elegant, efficient patterns.",
+      "Conception de solutions serveur évolutives et sécurisées avec des modèles efficaces et élégants.",
     skills: ["Node.js", "Spring Boot", "GraphQL", "Microservices", "REST APIs"],
     color: "text-green-500",
     accentColor: "bg-green-500/10 hover:bg-green-500/20",
   },
   {
     icon: Database,
-    title: "Data Engineering",
+    title: "Ingénierie de Données",
     description:
-      "Transforming raw data into intelligent, performant database architectures.",
-    skills: ["PostgreSQL", "MongoDB", "Prisma", "Redis", "Data Modeling"],
+      "Transformation de données brutes en architectures de bases de données intelligentes et performantes.",
+    skills: ["PostgreSQL", "MongoDB", "Prisma", "Redis", "Modélisation de Données"],
     color: "text-purple-500",
     accentColor: "bg-purple-500/10 hover:bg-purple-500/20",
   },
@@ -44,32 +44,32 @@ const expertiseAreas = [
     icon: Shield,
     title: "DevSecOps",
     description:
-      "Integrating security as a core principle throughout the software development lifecycle.",
+      "Intégration de la sécurité comme principe fondamental tout au long du cycle de développement logiciel.",
     skills: [
       "Docker",
       "Kubernetes",
       "CI/CD",
-      "Security Audits",
-      "Cloud Security",
+      "Audits de Sécurité",
+      "Sécurité Cloud",
     ],
     color: "text-red-500",
     accentColor: "bg-red-500/10 hover:bg-red-500/20",
   },
   {
     icon: Layers,
-    title: "Cloud Native",
+    title: "Cloud Natif",
     description:
-      "Architecting resilient, scalable cloud solutions that push technological boundaries.",
-    skills: ["AWS", "Vercel", "Firebase", "Serverless", "Cloud Native"],
+      "Conception de solutions cloud résilientes et évolutives qui repoussent les limites technologiques.",
+    skills: ["AWS", "Vercel", "Firebase", "Serverless", "Cloud Natif"],
     color: "text-indigo-500",
     accentColor: "bg-indigo-500/10 hover:bg-indigo-500/20",
   },
   {
     icon: Workflow,
-    title: "Engineering Workflow",
+    title: "Flux de Travail d'Ingénierie",
     description:
-      "Optimizing development processes with agile methodologies and collaborative innovation.",
-    skills: ["Git", "Agile", "TDD", "Design Patterns", "Team Collaboration"],
+      "Optimisation des processus de développement avec des méthodologies agiles et une innovation collaborative.",
+    skills: ["Git", "Agile", "TDD", "Modèles de Conception", "Collaboration d'Équipe"],
     color: "text-cyan-500",
     accentColor: "bg-cyan-500/10 hover:bg-cyan-500/20",
   },
@@ -107,7 +107,7 @@ export function MyExpertise() {
             className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary"
           >
             <Rocket className="h-4 w-4 animate-pulse text-primary" />
-            Professional Capabilities
+            Compétences Professionnelles
           </motion.div>
 
           <motion.h2
@@ -116,7 +116,7 @@ export function MyExpertise() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mt-4 bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl"
           >
-            Engineering Expertise
+            Expertise en Ingénierie
           </motion.h2>
 
           <motion.p
@@ -125,8 +125,7 @@ export function MyExpertise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-muted-foreground"
           >
-            Innovative solutions at the intersection of technology and
-            creativity
+            Solutions innovantes à l&apos;intersection de la technologie et de la créativité
           </motion.p>
         </div>
 

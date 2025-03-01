@@ -37,33 +37,35 @@ const socialLinks = [
   },
 ];
 
-const footerLinks = [
-  {
-    title: "Navigation",
-    links: [
-      { name: "Home", href: "/" },
-      { name: "Portfolio", href: "/portfolio" },
-      { name: "Blog", href: "/blog" },
-      { name: "About", href: "/about" },
-      { name: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { name: "Resume", href: "/resume" },
-      { name: "Case Studies", href: "/case-studies" },
-      { name: "Testimonials", href: "/testimonials" },
-    ],
-  },
-];
+const footerLinks = {
+  sections: [
+    {
+      title: "Navigation",
+      links: [
+        { name: "Accueil", href: "/" },
+        { name: "Portfolio", href: "/portfolio" },
+        { name: "Projets", href: "/projects" },
+        { name: "Blog", href: "/blog" },
+        { name: "Contact", href: "/contact" }
+      ]
+    },
+    {
+      title: "Ressources",
+      links: [
+        { name: "CV", href: "/resume.pdf" },
+        { name: "Mentions Légales", href: "/legal" },
+        { name: "Politique de Confidentialité", href: "/privacy" }
+      ]
+    }
+  ]
+};
 
 export function Footer() {
   return (
     <div className="relative overflow-hidden border-t border-primary/10">
       <div className="absolute inset-0 bg-grid-pattern bg-grid" />
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background/30 backdrop-blur-sm" />
-      
+
       <div className="container relative space-y-12 py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -79,9 +81,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Fullstack Engineer | +2 years experience in software development |
-              Aspiring DevSecOps | Passionate about software security | Code
-              secure-by-design
+              Ingénieur Fullstack | +2 ans d&apos;expérience dans le développement de logiciels | Aspirant DevSecOps | Passionné par la sécurité des logiciels | Code sécurisé par conception
             </p>
             <div className="flex gap-2">
               {socialLinks.map((link) => {
@@ -105,7 +105,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          {footerLinks.map((section) => (
+          {footerLinks.sections.map((section) => (
             <div key={section.title} className="space-y-4">
               <h3 className="text-lg font-semibold leading-6 text-foreground">
                 {section.title}
@@ -128,14 +128,14 @@ export function Footer() {
 
           {/* Newsletter */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Stay Updated</h3>
+            <h3 className="text-lg font-semibold">Restez informé</h3>
             <p className="text-sm text-muted-foreground">
-              Subscribe to my newsletter for the latest updates and insights.
+              Abonnez-vous à ma newsletter pour rester informé des dernières actualités et insights.
             </p>
             <form className="relative space-y-2">
               <Input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Entrez votre adresse e-mail"
                 className="h-11 rounded-full bg-primary/5 px-4 transition-colors focus-visible:bg-primary/10"
               />
               <Button
@@ -143,7 +143,7 @@ export function Footer() {
                 className="w-full rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_4px_rgba(124,58,237,0.3)]"
               >
                 <span className="flex items-center gap-2">
-                  Subscribe
+                  S&apos;abonner
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Button>
@@ -152,16 +152,10 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-center gap-4 border-t border-primary/10 pt-8 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Naguib. All rights reserved.</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/privacy" className="hover:text-primary">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-primary">
-              Terms of Service
-            </Link>
-            <Link href="/sitemap" className="hover:text-primary">
-              Sitemap
+          <p> {new Date().getFullYear()} Naguib Mohamed. Tous droits réservés.</p>
+          <div className="flex items-center space-x-4">
+            <Link href="/contact" className="text-sm hover:text-primary">
+              Me Contacter
             </Link>
           </div>
         </div>
