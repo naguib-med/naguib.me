@@ -9,12 +9,6 @@ import ClientMDX from './client-mdx';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { formatDate } from '@/lib/utils/date-utils';
-import type { Metadata } from 'next';
-
-// Définir le type pour les paramètres de page
-type PageParams = {
-    params: { slug: string };
-};
 
 // Cette fonction est utilisée pour la génération statique des pages à la construction (build)
 export async function generateStaticParams() {
@@ -27,8 +21,15 @@ export async function generateStaticParams() {
 }
 
 // Cette fonction génère des métadonnées pour chaque page
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-    const { slug } = params;
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+    const slug = params?.slug;
+
+    if (!slug) {
+        return {
+            title: 'Article introuvable',
+            description: 'Le slug de l\'article est manquant'
+        };
+    }
 
     try {
         const post = await getPostBySlug(slug);
@@ -60,9 +61,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
     }
 }
 
-// Page principale
-export default async function BlogPostPage({ params }: PageParams) {
-    const { slug } = params;
+export default async function BlogPostPage({ params: { slug } }: any) {
 
     try {
         console.log("Tentative de chargement du post avec slug:", slug);
