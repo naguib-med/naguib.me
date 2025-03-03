@@ -9,6 +9,7 @@ import ClientMDX from './client-mdx';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { formatDate } from '@/lib/utils/date-utils';
+import type { Metadata } from 'next';
 
 // Cette fonction est utilisée pour la génération statique des pages à la construction (build)
 export async function generateStaticParams() {
@@ -21,7 +22,7 @@ export async function generateStaticParams() {
 }
 
 // Cette fonction génère des métadonnées pour chaque page
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const slug = params?.slug;
 
     if (!slug) {
@@ -61,11 +62,14 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 }
 
+interface PageProps {
+    params: { slug: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
+}
+
 export default async function BlogPostPage({
     params,
-}: {
-    params: { slug: string };
-}) {
+}: PageProps) {
     const slug = params.slug;
 
     try {
