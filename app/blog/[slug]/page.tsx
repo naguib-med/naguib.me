@@ -11,6 +11,11 @@ import { ArrowLeft } from 'lucide-react';
 import { formatDate } from '@/lib/utils/date-utils';
 import type { Metadata } from 'next';
 
+// Définir le type pour les paramètres de page
+type PageParams = {
+    params: { slug: string };
+};
+
 // Cette fonction est utilisée pour la génération statique des pages à la construction (build)
 export async function generateStaticParams() {
     try {
@@ -22,15 +27,8 @@ export async function generateStaticParams() {
 }
 
 // Cette fonction génère des métadonnées pour chaque page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const slug = params?.slug;
-
-    if (!slug) {
-        return {
-            title: 'Article introuvable',
-            description: 'Le slug de l\'article est manquant'
-        };
-    }
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+    const { slug } = params;
 
     try {
         const post = await getPostBySlug(slug);
@@ -62,15 +60,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 }
 
-interface PageProps {
-    params: { slug: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default async function BlogPostPage({
-    params,
-}: PageProps) {
-    const slug = params.slug;
+// Page principale
+export default async function BlogPostPage({ params }: PageParams) {
+    const { slug } = params;
 
     try {
         console.log("Tentative de chargement du post avec slug:", slug);
