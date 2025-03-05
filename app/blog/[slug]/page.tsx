@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { formatDate } from '@/lib/utils/date-utils';
 
-// Cette fonction est utilisée pour la génération statique des pages à la construction (build)
 export async function generateStaticParams() {
     try {
         return await getAllPostSlugs();
@@ -20,7 +19,6 @@ export async function generateStaticParams() {
     }
 }
 
-// Cette fonction génère des métadonnées pour chaque page
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const slug = params?.slug;
 
@@ -61,7 +59,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 }
 
-export default async function BlogPostPage({ params: { slug } }: any) {
+export default async function BlogPostPage({
+    params,
+}: {
+    params: { slug: string };
+}) {
+    const slug = params.slug;
 
     try {
         console.log("Tentative de chargement du post avec slug:", slug);
