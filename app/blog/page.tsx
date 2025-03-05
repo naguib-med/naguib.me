@@ -3,15 +3,11 @@ import { PageHeader } from "@/components/page-header";
 import { getAllPosts } from "@/lib/mdx/mdx-utils";
 import BlogList from "./blog-list";
 import { formatDate } from "@/lib/utils/date-utils";
-
-// Liste des catégories (à placer dans un fichier de configuration si elle évolue souvent)
-export const categories = ["Tous", "Développement Web", "Tendances Tech", "Performance", "UI/UX", "Carrière"];
+import { BLOG_CATEGORIES } from "@/lib/constants/blog-constants";
 
 export default async function BlogPage() {
-    // Récupérer tous les posts depuis les fichiers MDX
     const posts = await getAllPosts();
 
-    // S'assurer que toutes les dates sont des chaînes formatées
     const formattedPosts = posts.map(post => ({
         ...post,
         meta: {
@@ -29,8 +25,7 @@ export default async function BlogPage() {
             />
 
             <div className="container py-12 md:py-20 mx-auto">
-                {/* Le composant client pour la recherche et l'affichage */}
-                <BlogList initialPosts={formattedPosts} categories={categories} />
+                <BlogList initialPosts={formattedPosts} categories={BLOG_CATEGORIES} />
             </div>
         </div>
     );
