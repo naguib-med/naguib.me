@@ -2,8 +2,18 @@
 'use client';
 
 import React from 'react';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import dynamic from 'next/dynamic';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMDXComponents } from '@/lib/mdx/mdx-components';
+
+const MDXRemote = dynamic(
+    () => import('next-mdx-remote').then((mod) => mod.MDXRemote),
+    {
+        ssr: false,
+        loading: () => <div className="animate-pulse p-4 my-4 bg-gray-100 dark:bg-gray-800 rounded">Chargement du contenu...</div>
+    }
+);
+
 
 interface ClientMDXProps {
     source: MDXRemoteSerializeResult;
