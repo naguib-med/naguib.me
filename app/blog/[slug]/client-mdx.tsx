@@ -1,19 +1,22 @@
 // blog/[slug]/client-mdx.tsx
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { useMDXComponents } from '@/lib/mdx/mdx-components';
 
-const MDXRemote = dynamic(
-    () => import('next-mdx-remote').then((mod) => mod.MDXRemote),
+// Import dynamique avec SSR désactivé pour packages ESM
+const MDXRemoteComponent = dynamic(
+    async () => {
+        const { MDXRemote } = await import('next-mdx-remote');
+        return { default: MDXRemote };
+    },
     {
         ssr: false,
         loading: () => <div className="animate-pulse p-4 my-4 bg-gray-100 dark:bg-gray-800 rounded">Chargement du contenu...</div>
     }
 );
-
 
 interface ClientMDXProps {
     source: MDXRemoteSerializeResult;
@@ -33,7 +36,9 @@ export default function ClientMDX({ source }: ClientMDXProps) {
     try {
         return (
             <div className="prose prose-lg dark:prose-invert max-w-none">
-                <MDXRemote {...source} components={components} />
+                <Suspense fallback={<div className="animate-pulse p-4 my-4 bg-gray-100 dark:bg-gray-800 rounded">Chargement du contenu...</div>}>
+                    <MDXRemoteComponent {...source} components={components} />
+                </Suspense>
             </div>
         );
     } catch (error) {
