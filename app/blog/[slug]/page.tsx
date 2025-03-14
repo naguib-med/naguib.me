@@ -19,8 +19,8 @@ export async function generateStaticParams() {
     }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await (params);
 
     if (!slug) {
         return {
@@ -59,8 +59,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await (params);
     try {
         console.log("Tentative de chargement du post avec slug:", slug);
         const postData = await getPostBySlug(slug);
