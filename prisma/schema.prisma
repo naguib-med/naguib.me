@@ -111,6 +111,29 @@ model Comment {
   authorId  String
 }
 
+model Reaction {
+  id        String   @id @default(uuid())
+  emoji     String
+  articleId String
+  count     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([emoji, articleId])
+  @@index([articleId])
+}
+
+model UserReaction {
+  id        String   @id @default(uuid())
+  userId    String
+  articleId String
+  emoji     String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, articleId, emoji])
+  @@index([userId, articleId])
+}
+
 model Newsletter {
   id        String   @id @default(cuid())
   email     String   @unique

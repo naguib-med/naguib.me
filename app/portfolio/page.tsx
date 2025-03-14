@@ -15,7 +15,7 @@ const projects = [
         image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         tags: ["Next.js", "OpenAI", "Tailwind"],
         demoUrl: "#",
-        githubUrl: "#",
+        githubUrl: "salut",
     },
     {
         title: "Plateforme de Blog Créative",

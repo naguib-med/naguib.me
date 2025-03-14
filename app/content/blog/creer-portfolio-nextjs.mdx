@@ -1,0 +1,111 @@
+---
+title: "Comment créer un portfolio moderne avec Next.js"
+excerpt: "Un guide complet pour créer un portfolio professionnel avec Next.js et React"
+date: "2023-05-12"
+author: "Développeur Passionné"
+category: "Développement Web"
+tags: ["Next.js", "React", "Portfolio", "Frontend"]
+image: "/images/blog/portfolio-nextjs.jpg"
+readTime: "5 min"
+---
+
+# Comment créer un portfolio moderne avec Next.js
+
+Next.js est devenu l'un des frameworks les plus populaires pour développer des applications React modernes. Dans cet article, nous allons explorer comment créer un portfolio professionnel et performant avec Next.js.
+
+## Introduction
+
+Un portfolio bien conçu est essentiel pour tout développeur frontend souhaitant mettre en valeur ses compétences et projets. Next.js offre des fonctionnalités qui en font un choix idéal pour ce type de site :
+
+- Génération de sites statiques (SSG)
+- Rendu côté serveur (SSR)
+- Optimisation automatique des images
+- Routage simplifié
+- Support TypeScript natif
+
+## Première partie: Configurer le projet
+
+Commençons par configurer notre projet Next.js. Assurez-vous d'avoir Node.js installé sur votre machine.
+
+```bash
+npx create-next-app@latest mon-portfolio
+cd mon-portfolio
+```
+
+Ensuite, installons quelques dépendances utiles :
+
+```bash
+npm install framer-motion @tailwindcss/typography
+```
+
+## Deuxième partie: Structurer le portfolio
+
+Un portfolio efficace devrait inclure ces sections:
+
+1. Une page d'accueil accrocheuse
+2. Une section "À propos de moi"
+3. Une galerie de projets
+4. Une section de compétences techniques
+5. Un formulaire de contact
+
+### Structure des dossiers
+
+Voici la structure de dossiers recommandée :
+
+```
+/mon-portfolio
+  /app
+    /about
+      page.tsx
+    /projects
+      /[slug]
+        page.tsx
+      page.tsx
+    /contact
+      page.tsx
+    layout.tsx
+    page.tsx
+  /components
+    Header.tsx
+    Footer.tsx
+    ProjectCard.tsx
+  /styles
+    globals.css
+```
+
+## Intégration de composants React
+
+Pour créer des animations fluides, nous pouvons utiliser Framer Motion :
+
+```jsx
+// Exemple de composant animé
+const ProjectCard = ({ title, description, image }) => {
+  return (
+    <motion.div
+      whileHover={{ y: -10 }}
+      transition={{ duration: 0.3 }}
+      className="rounded-lg overflow-hidden shadow-lg"
+    >
+      <Image
+        src={image}
+        alt={title}
+        width={400}
+        height={250}
+        className="w-full"
+      />
+      <div className="p-6">
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
+    </motion.div>
+  );
+};
+```
+
+## Conclusion
+
+Next.js offre une excellente plateforme pour créer des portfolios modernes et performants. Avec ses fonctionnalités avancées comme l'optimisation automatique des images et le rendu statique, votre portfolio sera non seulement élégant mais aussi rapide et bien référencé par les moteurs de recherche.
+
+N'oubliez pas que la simplicité et la clarté sont souvent plus efficaces qu'un design surchargé. Mettez l'accent sur vos projets et vos compétences, et laissez votre code parler pour vous !
+
+À vous de jouer maintenant. Quels projets allez-vous mettre en avant dans votre portfolio ?
