@@ -1,0 +1,304 @@
+---
+title: "Guide Complet des Tests Automatisés en JavaScript/TypeScript"
+excerpt: "Découvrez les meilleures pratiques et outils pour mettre en place une stratégie de tests automatisés efficace dans vos projets JavaScript/TypeScript."
+image: "/blog/tests-automatises.jpg"
+category: "Tests"
+date: "2024-03-20"
+readTime: "9 min"
+---
+
+# Guide Complet des Tests Automatisés en JavaScript/TypeScript
+
+Les tests automatisés sont essentiels pour maintenir la qualité de votre code. Voici un guide complet pour mettre en place une stratégie de tests efficace.
+
+## 1. Les Différents Types de Tests
+
+### Tests Unitaires
+
+```typescript
+// math.ts
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+// math.test.ts
+import { add } from "./math";
+
+describe("add", () => {
+  it("should add two numbers correctly", () => {
+    expect(add(2, 3)).toBe(5);
+  });
+
+  it("should handle negative numbers", () => {
+    expect(add(-1, 1)).toBe(0);
+  });
+});
+```
+
+### Tests d'Intégration
+
+```typescript
+// userService.test.ts
+import { UserService } from "./userService";
+import { Database } from "./database";
+
+describe("UserService", () => {
+  let userService: UserService;
+  let database: Database;
+
+  beforeEach(() => {
+    database = new Database();
+    userService = new UserService(database);
+  });
+
+  it("should create a new user", async () => {
+    const user = await userService.createUser({
+      name: "John Doe",
+      email: "john@example.com",
+    });
+
+    expect(user.id).toBeDefined();
+    expect(user.name).toBe("John Doe");
+  });
+});
+```
+
+## 2. Configuration de Jest
+
+### jest.config.js
+
+```javascript
+module.exports = {
+  preset: "ts-jest",
+  testEnvironment: "node",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
+};
+```
+
+## 3. Tests de Composants React
+
+### Tests avec React Testing Library
+
+```typescript
+// Button.test.tsx
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Button } from "./Button";
+
+describe("Button", () => {
+  it("should render correctly", () => {
+    render(<Button>Click me</Button>);
+    expect(screen.getByRole("button")).toHaveTextContent("Click me");
+  });
+
+  it("should call onClick when clicked", () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+
+    fireEvent.click(screen.getByRole("button"));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+## 4. Tests E2E avec Cypress
+
+### Configuration de Base
+
+```typescript
+// cypress.config.ts
+import { defineConfig } from "cypress";
+
+export default defineConfig({
+  e2e: {
+    baseUrl: "http://localhost:3000",
+    setupNodeEvents(on, config) {
+      // configuration des plugins
+    },
+  },
+});
+```
+
+### Exemple de Test E2E
+
+```typescript
+// login.cy.ts
+describe("Login Page", () => {
+  it("should login successfully", () => {
+    cy.visit("/login");
+    cy.get('[data-testid="email-input"]').type("user@example.com");
+    cy.get('[data-testid="password-input"]').type("password123");
+    cy.get('[data-testid="submit-button"]').click();
+
+    cy.url().should("include", "/dashboard");
+  });
+});
+```
+
+## 5. Tests de Performance
+
+### Tests avec Lighthouse CI
+
+```yaml
+# .lighthouserc.js
+module.exports = {
+  ci: {
+    collect: {
+      startServerCommand: 'npm run start',
+      url: ['http://localhost:3000'],
+    },
+    assert: {
+      assertions: {
+        'categories:performance': ['error', { minScore: 0.9 }],
+        'categories:accessibility': ['error', { minScore: 0.9 }],
+      },
+    },
+  },
+};
+```
+
+## 6. Tests d'API
+
+### Tests avec Supertest
+
+```typescript
+// api.test.ts
+import request from "supertest";
+import { app } from "./app";
+
+describe("API Tests", () => {
+  it("should return 200 for GET /api/users", async () => {
+    const response = await request(app).get("/api/users").expect(200);
+
+    expect(response.body).toBeInstanceOf(Array);
+  });
+
+  it("should create a new user", async () => {
+    const userData = {
+      name: "John Doe",
+      email: "john@example.com",
+    };
+
+    const response = await request(app)
+      .post("/api/users")
+      .send(userData)
+      .expect(201);
+
+    expect(response.body).toMatchObject(userData);
+  });
+});
+```
+
+## 7. Tests de Mutation
+
+### Tests avec Stryker
+
+```javascript
+// stryker.conf.js
+module.exports = {
+  packageManager: "npm",
+  reporters: ["html", "clear-text", "progress"],
+  testRunner: "jest",
+  coverageAnalysis: "perTest",
+  jest: {
+    projectType: "custom",
+    configFile: "jest.config.js",
+  },
+};
+```
+
+## 8. Tests de Snapshot
+
+### Tests avec Jest Snapshot
+
+```typescript
+// UserCard.test.tsx
+import { render } from "@testing-library/react";
+import { UserCard } from "./UserCard";
+
+describe("UserCard", () => {
+  it("should match snapshot", () => {
+    const { container } = render(
+      <UserCard name="John Doe" email="john@example.com" avatar="/avatar.jpg" />
+    );
+
+    expect(container).toMatchSnapshot();
+  });
+});
+```
+
+## 9. Tests de Contrat
+
+### Tests avec Pact
+
+```typescript
+// consumer.test.ts
+import { Pact } from "@pact-foundation/pact";
+
+describe("User API", () => {
+  const provider = new Pact({
+    consumer: "Frontend",
+    provider: "UserAPI",
+  });
+
+  it("should return user data", () => {
+    return provider
+      .addInteraction({
+        state: "a user exists",
+        uponReceiving: "a request for user data",
+        withRequest: {
+          method: "GET",
+          path: "/api/users/1",
+        },
+        willRespondWith: {
+          status: 200,
+          body: {
+            id: 1,
+            name: "John Doe",
+            email: "john@example.com",
+          },
+        },
+      })
+      .then(() => {
+        // Test implementation
+      });
+  });
+});
+```
+
+## 10. Bonnes Pratiques
+
+### Organisation des Tests
+
+```plaintext
+src/
+  components/
+    Button/
+      Button.tsx
+      Button.test.tsx
+  services/
+    userService.ts
+    userService.test.ts
+  __tests__/
+    integration/
+    e2e/
+```
+
+## Conclusion
+
+Une bonne stratégie de tests automatisés permet de :
+
+- Détecter les bugs rapidement
+- Maintenir la qualité du code
+- Faciliter les refactorings
+- Améliorer la documentation
+- Augmenter la confiance dans le code
+
+N'oubliez pas d'adapter votre stratégie de tests en fonction de vos besoins spécifiques et de votre contexte projet.

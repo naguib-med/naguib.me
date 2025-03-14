@@ -8,8 +8,7 @@ import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-import { Code, Menu, X, ChevronRight, User } from "lucide-react"
+import { Code, Menu, X, ChevronRight, User, LogOut } from "lucide-react"
 import { useSession, signOut } from "next-auth/react";
 import {
     DropdownMenu,
@@ -23,7 +22,6 @@ const navigation = [
     { name: "Home", href: "/" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Blog", href: "/blog" },
-    { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
 ]
 
@@ -41,12 +39,12 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-
     const handleSignOut = async () => {
         try {
             await signOut({
                 redirect: false
             })
+            setIsMobileMenuOpen(false)
         } catch (error) {
             console.error("Error signing out:", error)
         }
@@ -153,18 +151,22 @@ export function Header() {
                                         className="text-red-600 focus:bg-red-50 focus:text-red-600"
                                         onClick={() => handleSignOut()}
                                     >
+                                        <LogOut className="mr-2 h-4 w-4" />
                                         Log out
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         ) : (
                             <Button
+                                asChild
                                 className="group relative h-9 overflow-hidden rounded-full bg-gradient-to-r from-primary via-violet-500 to-blue-500 px-4 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_4px_rgba(124,58,237,0.3)]"
                             >
-                                <span className="relative z-10 flex items-center gap-1 text-sm">
-                                    Hire Me
-                                    <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                                </span>
+                                <Link href="/contact">
+                                    <span className="relative z-10 flex items-center gap-1 text-sm">
+                                        Hire Me
+                                        <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                                    </span>
+                                </Link>
                             </Button>
                         )}
                     </div>
@@ -233,10 +235,60 @@ export function Header() {
                                     <ChevronRight className="h-4 w-4" />
                                 </Link>
                             ))}
-                            <div className="mt-4 px-4">
-                                <Button className="w-full rounded-lg bg-gradient-to-r from-primary via-violet-500 to-blue-500">
-                                    Hire Me
-                                </Button>
+                            <div className="mt-4 space-y-2 px-4">
+                                {session ? (
+                                    <>
+                                        <div className="flex items-center gap-2 rounded-lg px-4 py-3">
+                                            {session.user?.image ? (
+                                                <Avatar className="h-8 w-8">
+                                                    <AvatarImage
+                                                        src={session.user.image}
+                                                        alt={session.user.name || "Profile"}
+                                                    />
+                                                    <AvatarFallback>{session.user.name?.[0]}</AvatarFallback>
+                                                </Avatar>
+                                            ) : (
+                                                <User className="h-5 w-5" />
+                                            )}
+                                            <div className="flex flex-col">
+                                                <p className="text-sm font-medium">{session.user?.name}</p>
+                                                <p className="text-xs text-muted-foreground">{session.user?.email}</p>
+                                            </div>
+                                        </div>
+                                        <Link
+                                            href="/dashboard"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-foreground"
+                                        >
+                                            Dashboard
+                                            <ChevronRight className="h-4 w-4" />
+                                        </Link>
+                                        <Link
+                                            href="/settings"
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                            className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-muted-foreground hover:bg-primary/5 hover:text-foreground"
+                                        >
+                                            Settings
+                                            <ChevronRight className="h-4 w-4" />
+                                        </Link>
+                                        <button
+                                            onClick={() => handleSignOut()}
+                                            className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50"
+                                        >
+                                            Log out
+                                            <LogOut className="h-4 w-4" />
+                                        </button>
+                                    </>
+                                ) : (
+                                    <Button
+                                        asChild
+                                        className="w-full rounded-lg bg-gradient-to-r from-primary via-violet-500 to-blue-500"
+                                    >
+                                        <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                                            Hire Me
+                                        </Link>
+                                    </Button>
+                                )}
                             </div>
                         </nav>
                     </motion.div>

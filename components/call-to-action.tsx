@@ -16,8 +16,8 @@ export function CallToAction() {
   return (
     <section ref={ref} className="relative overflow-hidden py-24 sm:py-32">
       <div className="absolute inset-0 bg-grid-pattern bg-grid" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background/30" />      
-    
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background/30" />
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
