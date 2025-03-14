@@ -59,8 +59,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-    const { slug } = await (params);
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+    const { slug } = params;
     try {
         console.log("Tentative de chargement du post avec slug:", slug);
         const postData = await getPostBySlug(slug);

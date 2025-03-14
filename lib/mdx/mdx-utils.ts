@@ -97,7 +97,6 @@ export async function getPostBySlug(slug: string) {
       }
     }
 
-    console.log(`Lecture du fichier: ${fullPath}`);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Utiliser gray-matter pour parser le frontmatter
@@ -107,9 +106,9 @@ export async function getPostBySlug(slug: string) {
     const mdxSource = await serialize(content, {
       mdxOptions: {
         rehypePlugins: [
-          rehypePrism, // Syntaxe highlighting
-          rehypeSlug, // Ajouter des IDs aux titres
-          [rehypeAutolinkHeadings, { behavior: "wrap" }], // Ajouter des liens vers les titres
+          rehypePrism,
+          rehypeSlug,
+          [rehypeAutolinkHeadings, { behavior: "wrap" }],
         ],
       },
     });
