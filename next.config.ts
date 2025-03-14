@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  experimental: {
+    esmExternals: "loose",
+  },
 };
 
 export default withMDX({
