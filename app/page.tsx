@@ -6,6 +6,7 @@ import { MyExpertise } from "@/components/my-expertise";
 import LatestBlog from "@/components/latest-blog";
 import { Experience } from "@/components/experience";
 import { CallToAction } from "@/components/call-to-action";
+import { Education } from "@/components/education";
 
 export default function Home() {
   return (
@@ -25,6 +26,11 @@ export default function Home() {
         {/* Experience Section */}
         <section className="relative z-10">
           <Experience />
+        </section>
+
+        {/* Education Section */}
+        <section className="relative z-10">
+          <Education />
         </section>
 
         {/* Featured Projects Section */}

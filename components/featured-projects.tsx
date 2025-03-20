@@ -6,41 +6,14 @@ import { ArrowRight, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/magnetic-button";
 import { ProjectCard } from "@/components/project-card";
+import { projects } from "@/lib/constants";
 
-const projects = [
-  {
-    title: "Portfolio Alimenté par IA",
-    description: "Portfolio Next.js avec génération de contenu pilotée par IA",
-    image:
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tags: ["Next.js", "OpenAI", "Tailwind"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    title: "Plateforme de Blog Créative",
-    description: "Blog moderne avec contenu dynamique et animations",
-    image:
-      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tags: ["React", "MDX", "Framer Motion"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-  {
-    title: "CV Interactif",
-    description: "Expérience de CV alimentée par WebGL",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    tags: ["Three.js", "GSAP", "TypeScript"],
-    demoUrl: "#",
-    githubUrl: "#",
-  },
-];
 
 function useParallax(value: MotionValue<number>, distance: number) {
-  return useTransform(value, [0, 1], [-distance, distance]);
+  return useTransform(value, (latest) => {
+    return latest * (distance * 2) - distance;
+  });
 }
-
 export function FeaturedProjects() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -49,7 +22,16 @@ export function FeaturedProjects() {
   });
 
   const y = useParallax(scrollYProgress, 30);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, (latest) => {
+    if (latest <= 0) return 0;
+    if (latest < 0.2) return latest / 0.2;
+    if (latest < 0.8) return 1;
+    return 1 - (latest - 0.8) / 0.2;
+  });
+  const recentProjects = projects
+    .filter(project => project.isRecent)
+    .slice(0, 3);
+
 
   return (
     <motion.section
@@ -91,8 +73,13 @@ export function FeaturedProjects() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+          {recentProjects.map((project, index) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={index}
+              variant="grid"
+            />
           ))}
         </div>
 

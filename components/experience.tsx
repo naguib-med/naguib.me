@@ -146,6 +146,15 @@ export function Experience() {
           >
             Parcours Professionnel
           </motion.h2>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={timelineInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 text-muted-foreground"
+          >
+            Mon parcours professionnel diversifié m&apos;a permis de développer une expertise solide
+            en développement full-stack et en gestion de projets informatiques dans divers secteurs.
+          </motion.p>
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">

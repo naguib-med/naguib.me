@@ -13,40 +13,43 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Badge } from "@/components/ui/badge"
 
-const technologies = [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node.js",
-    "Python",
-    "MongoDB",
-    "PostgreSQL",
-    "Tailwind",
-    "OpenAI",
-    "Three.js",
-    "GSAP",
-    "Framer Motion",
-]
-
 interface ProjectFilterProps {
     selectedTech: string[]
     onFilterChange: (techs: string[]) => void
+    allTechnologies?: string[]
 }
 
-export function ProjectFilter({ selectedTech, onFilterChange }: ProjectFilterProps) {
+export function ProjectFilter({
+    selectedTech,
+    onFilterChange,
+    allTechnologies = [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "Python",
+        "MongoDB",
+        "PostgreSQL",
+        "Tailwind",
+        "OpenAI",
+        "Three.js",
+        "GSAP",
+        "Framer Motion",
+    ]
+}: ProjectFilterProps) {
     return (
-        <div className="mb-8 flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="outline" size="sm">
                         <Filter className="mr-2 h-4 w-4" />
-                        Filter Projects
+                        Filter Technologies
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                     <DropdownMenuLabel>Technologies</DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {technologies.map((tech) => (
+                    {allTechnologies.map((tech) => (
                         <DropdownMenuCheckboxItem
                             key={tech}
                             checked={selectedTech.includes(tech)}
