@@ -7,7 +7,7 @@ const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const session = await auth();
@@ -16,7 +16,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
 
-    const { slug } = params;
+    const { slug } = await params;
     const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
 
     try {
