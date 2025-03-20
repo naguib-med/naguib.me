@@ -13,7 +13,6 @@ import {
   Github,
   Linkedin,
   Twitter,
-  Figma,
   Zap,
   Lock,
   Network,
