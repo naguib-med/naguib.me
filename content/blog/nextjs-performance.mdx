@@ -1,0 +1,269 @@
+---
+title: "Optimiser les Performances avec Next.js 14"
+excerpt: "Guide complet pour optimiser les performances de votre application Next.js en utilisant les dernières fonctionnalités de Next.js 14."
+image: "/blog/nextjs-performance.jpg"
+category: "Next.js"
+date: "2024-03-05"
+readTime: "10 min"
+---
+
+# Optimiser les Performances avec Next.js 14
+
+Next.js 14 apporte de nombreuses améliorations pour les performances. Voici un guide complet pour optimiser votre application.
+
+## 1. Utiliser le Server Components
+
+### Exemple de Server Component
+
+```tsx
+// ✅ Server Component
+async function BlogPost({ id }: { id: string }) {
+  const post = await fetchPost(id);
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  );
+}
+
+// ❌ Client Component (à éviter si possible)
+("use client");
+function BlogPost({ id }: { id: string }) {
+  const [post, setPost] = useState(null);
+
+  useEffect(() => {
+    fetchPost(id).then(setPost);
+  }, [id]);
+
+  if (!post) return <Loading />;
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  );
+}
+```
+
+## 2. Implémenter le Streaming
+
+### Streaming avec Suspense
+
+```tsx
+// Layout.tsx
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </body>
+    </html>
+  );
+}
+
+// page.tsx
+async function BlogList() {
+  return (
+    <div>
+      <Suspense fallback={<PostListSkeleton />}>
+        <PostList />
+      </Suspense>
+      <Suspense fallback={<CommentsSkeleton />}>
+        <Comments />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+## 3. Optimiser les Images
+
+### Utiliser next/image
+
+```tsx
+// ❌
+<img src="/photo.jpg" alt="Photo" />;
+
+// ✅
+import Image from "next/image";
+
+<Image
+  src="/photo.jpg"
+  alt="Photo"
+  width={800}
+  height={600}
+  quality={75}
+  placeholder="blur"
+  blurDataURL="data:image/jpeg;base64,..."
+/>;
+```
+
+## 4. Mettre en Cache les Données
+
+### Utiliser le Cache de Route Handlers
+
+```tsx
+// app/api/posts/route.ts
+export async function GET() {
+  const posts = await fetchPosts();
+
+  return Response.json(posts, {
+    headers: {
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=59",
+    },
+  });
+}
+```
+
+## 5. Optimiser les Polices
+
+### Utiliser next/font
+
+```tsx
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="fr" className={inter.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+## 6. Implémenter le Route Groups
+
+### Organisation Optimale des Routes
+
+```plaintext
+app/
+  (marketing)/
+    page.tsx
+    about/
+      page.tsx
+  (dashboard)/
+    page.tsx
+    settings/
+      page.tsx
+```
+
+## 7. Utiliser les Parallel Routes
+
+### Chargement Parallèle
+
+```tsx
+// app/@modal/page.tsx
+export default function Modal() {
+  return <div>Modal Content</div>;
+}
+
+// app/layout.tsx
+export default function Layout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
+  return (
+    <>
+      {children}
+      {modal}
+    </>
+  );
+}
+```
+
+## 8. Optimiser le Bundle Size
+
+### Dynamic Imports
+
+```tsx
+// ❌
+import HeavyComponent from "./HeavyComponent";
+
+// ✅
+import dynamic from "next/dynamic";
+
+const HeavyComponent = dynamic(() => import("./HeavyComponent"), {
+  loading: () => <Loading />,
+  ssr: false,
+});
+```
+
+## 9. Utiliser les Middleware
+
+### Optimisation des Routes
+
+```tsx
+// middleware.ts
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  // Redirection basée sur la géolocalisation
+  if (request.geo?.country === "FR") {
+    return NextResponse.redirect(new URL("/fr", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: "/:path*",
+};
+```
+
+## 10. Monitoring des Performances
+
+### Utiliser next/analytics
+
+```tsx
+// app/layout.tsx
+import { Analytics } from "@vercel/analytics/next";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html>
+      <body>
+        {children}
+        <Analytics />
+      </body>
+    </html>
+  );
+}
+```
+
+## Conclusion
+
+Pour optimiser votre application Next.js 14 :
+
+- Privilégiez les Server Components
+- Utilisez le streaming avec Suspense
+- Optimisez les images avec next/image
+- Mettez en cache les données efficacement
+- Utilisez les polices optimisées
+- Organisez vos routes de manière optimale
+- Implémentez le chargement parallèle
+- Optimisez la taille du bundle
+- Utilisez les middleware pour l'optimisation
+- Surveillez les performances
+
+Ces optimisations permettront d'avoir une application plus rapide et une meilleure expérience utilisateur.

@@ -2,37 +2,19 @@ import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import type { User } from "@prisma/client";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
 import type { Session } from "next-auth";
+import { authConfig } from "./auth.config";
 
 interface ExtendedSession extends Session {
   accessToken?: string;
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
-  providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_GOOGLE_ID!,
-      clientSecret: process.env.AUTH_GOOGLE_SECRET!,
-      allowDangerousEmailAccountLinking: true,
-    }),
-    GitHubProvider({
-      clientId: process.env.AUTH_GITHUB_ID!,
-      clientSecret: process.env.AUTH_GITHUB_SECRET!,
-      allowDangerousEmailAccountLinking: true,
-    }),
-  ],
-  pages: {
-    signIn: "/auth/signin",
-    error: "/auth/error",
-  },
-  session: {
-    strategy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET!,
+  ...authConfig, // Import edge-compatible config
+  adapter: PrismaAdapter(prisma), // Non-edge compatible adapter
   callbacks: {
+    ...authConfig.callbacks, // Keep the authorized callback
+    // Non-edge compatible callbacks
     async session({ session, token }): Promise<ExtendedSession> {
       return {
         ...session,

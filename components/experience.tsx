@@ -118,8 +118,9 @@ export function Experience() {
       ref={timelineRef}
       className="relative overflow-hidden py-24 sm:py-32"
     >
-      <div className="absolute inset-0 bg-grid-pattern bg-grid" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background/30" />
+      <div className="absolute inset-0 bg-grid-pattern bg-grid opacity-5" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/80 to-background/50" />
+
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -145,6 +146,15 @@ export function Experience() {
           >
             Parcours Professionnel
           </motion.h2>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={timelineInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-4 text-muted-foreground"
+          >
+            Mon parcours professionnel diversifié m&apos;a permis de développer une expertise solide
+            en développement full-stack et en gestion de projets informatiques dans divers secteurs.
+          </motion.p>
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">
@@ -159,16 +169,14 @@ export function Experience() {
                 type: "spring",
                 stiffness: 100,
               }}
-              className="group perspective-1000 relative pl-8 pb-12 last:pb-0"
+              className="group relative pl-8 pb-12 last:pb-0"
             >
               <motion.div
                 whileHover={{
-                  scale: 1.05,
-                  rotateX: 5,
-                  rotateY: -5,
+                  scale: 1.02,
                   transition: { duration: 0.3 },
                 }}
-                className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-background/10 to-background/5 transition-all duration-300 shadow-xl hover:shadow-2xl p-6"
+                className="relative overflow-hidden rounded-2xl bg-card border border-border/50 hover:border-border transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 p-6"
               >
                 <div className="absolute left-0 top-0 flex h-6 w-6 items-center justify-center">
                   <div className="h-2 w-2 rounded-full bg-primary" />
@@ -176,12 +184,14 @@ export function Experience() {
                 </div>
                 <div className="absolute left-[11px] top-6 h-[calc(100%-24px)] w-px bg-gradient-to-b from-primary/50 to-transparent last:hidden" />
 
-                <div className="space-y-2">
+                <div className="space-y-4">
                   <div className="flex items-center gap-4">
-                    <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                    <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary ring-1 ring-inset ring-primary/20">
                       {item.year}
                     </span>
-                    <h3 className="text-lg font-semibold">{item.title}</h3>
+                    <h3 className="text-lg font-semibold group-hover:text-primary transition-colors duration-300">
+                      {item.title}
+                    </h3>
                   </div>
                   <p className="text-muted-foreground">
                     {item.company} - {item.type}
@@ -191,11 +201,11 @@ export function Experience() {
                       <li key={descIndex}>{desc}</li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="flex flex-wrap gap-2">
                     {item.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/20"
+                        className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"
                       >
                         {tech}
                       </span>

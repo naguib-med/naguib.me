@@ -1,0 +1,283 @@
+---
+title: "Guide de Sécurité Web pour Applications JavaScript/TypeScript"
+excerpt: "Découvrez les meilleures pratiques de sécurité pour protéger vos applications web JavaScript/TypeScript contre les vulnérabilités courantes."
+image: "/blog/securite-web.jpg"
+category: "Sécurité"
+date: "2024-03-25"
+readTime: "12 min"
+---
+
+# Guide de Sécurité Web pour Applications JavaScript/TypeScript
+
+La sécurité est un aspect crucial du développement web. Voici un guide complet pour sécuriser vos applications JavaScript/TypeScript.
+
+## 1. Protection contre les Injections XSS
+
+### Sanitisation des Données
+
+```typescript
+// ❌ Risque d'injection XSS
+const userInput = document.getElementById("userInput").value;
+document.getElementById("output").innerHTML = userInput;
+
+// ✅ Utilisation de DOMPurify
+import DOMPurify from "dompurify";
+
+const sanitizedInput = DOMPurify.sanitize(userInput);
+document.getElementById("output").innerHTML = sanitizedInput;
+```
+
+### Content Security Policy
+
+```typescript
+// middleware.ts
+import { NextResponse } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  response.headers.set(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline';"
+  );
+
+  return response;
+}
+```
+
+## 2. Protection contre les Injections SQL
+
+### Utilisation de Prisma
+
+```typescript
+// ❌ Risque d'injection SQL
+const query = `SELECT * FROM users WHERE email = '${email}'`;
+db.query(query);
+
+// ✅ Utilisation de Prisma
+const user = await prisma.user.findUnique({
+  where: { email },
+});
+```
+
+## 3. Gestion Sécurisée des Sessions
+
+### JWT avec Refresh Tokens
+
+```typescript
+// auth.ts
+import jwt from "jsonwebtoken";
+
+const JWT_SECRET = process.env.JWT_SECRET!;
+const REFRESH_SECRET = process.env.REFRESH_SECRET!;
+
+export function generateTokens(userId: string) {
+  const accessToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: "15m" });
+  const refreshToken = jwt.sign({ userId }, REFRESH_SECRET, {
+    expiresIn: "7d",
+  });
+
+  return { accessToken, refreshToken };
+}
+
+export function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, JWT_SECRET);
+  } catch (error) {
+    throw new Error("Token invalide");
+  }
+}
+```
+
+## 4. Protection contre le CSRF
+
+### Implémentation avec Next.js
+
+```typescript
+// middleware.ts
+import { NextResponse } from "next/server";
+import { csrf } from "@/lib/csrf";
+
+export async function middleware(request: NextRequest) {
+  if (request.method === "POST") {
+    const csrfToken = request.headers.get("x-csrf-token");
+    if (!csrfToken || !csrf.verify(csrfToken)) {
+      return new NextResponse("CSRF token invalide", { status: 403 });
+    }
+  }
+
+  return NextResponse.next();
+}
+
+// lib/csrf.ts
+import { generateToken, verifyToken } from "csrf";
+
+export const csrf = {
+  generate: () => generateToken(process.env.CSRF_SECRET!),
+  verify: (token: string) => verifyToken(process.env.CSRF_SECRET!, token),
+};
+```
+
+## 5. Sécurisation des API
+
+### Rate Limiting
+
+```typescript
+// middleware.ts
+import rateLimit from "express-rate-limit";
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limite chaque IP à 100 requêtes par fenêtre
+  message: "Trop de requêtes, veuillez réessayer plus tard",
+});
+
+app.use("/api/", limiter);
+```
+
+### Validation des Données
+
+```typescript
+// validation.ts
+import { z } from "zod";
+
+const UserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  age: z.number().min(18),
+});
+
+export function validateUser(data: unknown) {
+  return UserSchema.parse(data);
+}
+```
+
+## 6. Sécurisation des Mots de Passe
+
+### Hachage avec bcrypt
+
+```typescript
+// auth.ts
+import bcrypt from "bcrypt";
+
+export async function hashPassword(password: string): Promise<string> {
+  const salt = await bcrypt.genSalt(12);
+  return bcrypt.hash(password, salt);
+}
+
+export async function verifyPassword(
+  password: string,
+  hashedPassword: string
+): Promise<boolean> {
+  return bcrypt.compare(password, hashedPassword);
+}
+```
+
+## 7. Protection contre les Attaques par Force Brute
+
+### Implémentation d'un Système de Tentatives
+
+```typescript
+// auth.ts
+import { Redis } from "ioredis";
+
+const redis = new Redis();
+
+export async function checkLoginAttempts(email: string): Promise<boolean> {
+  const attempts = await redis.incr(`login:${email}`);
+  if (attempts === 1) {
+    await redis.expire(`login:${email}`, 3600); // expire après 1h
+  }
+
+  return attempts <= 5;
+}
+
+export async function resetLoginAttempts(email: string): Promise<void> {
+  await redis.del(`login:${email}`);
+}
+```
+
+## 8. Sécurisation des Fichiers
+
+### Validation des Uploads
+
+```typescript
+// upload.ts
+import { z } from "zod";
+
+const FileSchema = z.object({
+  size: z.number().max(5 * 1024 * 1024), // max 5MB
+  type: z.enum(["image/jpeg", "image/png", "application/pdf"]),
+  name: z.string().regex(/^[a-zA-Z0-9-_.]+$/),
+});
+
+export async function validateFile(file: File) {
+  const validatedFile = FileSchema.parse({
+    size: file.size,
+    type: file.type,
+    name: file.name,
+  });
+
+  return validatedFile;
+}
+```
+
+## 9. Sécurisation des Variables d'Environnement
+
+### Configuration avec dotenv
+
+```typescript
+// config.ts
+import { z } from "zod";
+
+const envSchema = z.object({
+  DATABASE_URL: z.string().url(),
+  JWT_SECRET: z.string().min(32),
+  API_KEY: z.string().min(32),
+});
+
+export const config = envSchema.parse(process.env);
+```
+
+## 10. Monitoring de la Sécurité
+
+### Implémentation de Logs de Sécurité
+
+```typescript
+// security.ts
+import winston from "winston";
+
+const securityLogger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  transports: [new winston.transports.File({ filename: "security.log" })],
+});
+
+export function logSecurityEvent(event: {
+  type: string;
+  ip: string;
+  details: Record<string, unknown>;
+}) {
+  securityLogger.info("Security Event", {
+    timestamp: new Date(),
+    ...event,
+  });
+}
+```
+
+## Conclusion
+
+Pour sécuriser votre application :
+
+- Validez toutes les entrées utilisateur
+- Utilisez des tokens JWT de manière sécurisée
+- Implémentez des limites de taux
+- Protégez contre les injections
+- Gérez correctement les sessions
+- Utilisez des mots de passe hachés
+- Surveillez les tentatives de connexion
+- Validez les fichiers uploadés
+- Protégez les variables d'environnement
+- Maintenez des logs de sécurité
+
+La sécurité est un processus continu. Restez à jour avec les dernières vulnérabilités et les meilleures pratiques.
