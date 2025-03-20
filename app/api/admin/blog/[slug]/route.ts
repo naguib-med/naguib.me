@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import fs from "fs/promises";
 import path from "path";
@@ -6,11 +6,10 @@ import path from "path";
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
 export async function DELETE(
-  req: Request,
+  request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
   try {
-    // Use the auth() function instead of getServerSession
     const session = await auth();
 
     if (!session?.user) {

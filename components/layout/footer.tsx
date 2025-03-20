@@ -46,6 +46,7 @@ const footerLinks = {
         { name: "Portfolio", href: "/portfolio" },
         { name: "Projets", href: "/projects" },
         { name: "Blog", href: "/blog" },
+        { name: "Certification", href: "/certification" },
         { name: "Contact", href: "/contact" }
       ]
     },
@@ -53,8 +54,6 @@ const footerLinks = {
       title: "Ressources",
       links: [
         { name: "CV", href: "/resume.pdf" },
-        { name: "Mentions Légales", href: "/legal" },
-        { name: "Politique de Confidentialité", href: "/privacy" }
       ]
     }
   ]

@@ -87,10 +87,9 @@ export function Hero() {
   };
 
   const socialLinks = [
-    { icon: <Github className="h-5 w-5" />, url: "https://github.com", label: "Github" },
-    { icon: <Linkedin className="h-5 w-5" />, url: "https://linkedin.com", label: "LinkedIn" },
-    { icon: <Twitter className="h-5 w-5" />, url: "https://twitter.com", label: "Twitter" },
-    { icon: <Figma className="h-5 w-5" />, url: "https://figma.com", label: "Figma" }
+    { icon: <Github className="h-5 w-5" />, url: "https://github.com/naguib-med", label: "Github" },
+    { icon: <Linkedin className="h-5 w-5" />, url: "https://www.linkedin.com/in/naguib-mohamed-mahamoud/", label: "LinkedIn" },
+    { icon: <Twitter className="h-5 w-5" />, url: "https://x.com/NaguibMoma", label: "Twitter" },
   ];
 
   return (
@@ -145,10 +144,10 @@ export function Hero() {
                     className="space-y-6 mb-8"
                   >
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-                      <span className="block">Développeur</span>
+                      <span className="block">Ingénieur</span>
                       <div className="relative mt-2">
                         <span className="relative z-10 inline-block bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
-                          Expérimenté & Sécurisé
+                          Fullstack | Futur Expert Cybersécurité
                         </span>
                         <span className="absolute -inset-1 block rounded-lg bg-gradient-to-r from-primary/20 via-violet-500/20 to-blue-500/20 opacity-30 blur-xl -z-10"></span>
                       </div>
