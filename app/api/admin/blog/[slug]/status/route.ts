@@ -8,16 +8,17 @@ const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const session = await auth();
+    const { slug } = await params;
     if (!session) {
       return new NextResponse("Non autorisé", { status: 401 });
     }
 
     const { status } = await request.json();
-    const filePath = path.join(BLOG_DIR, `${params.slug}.mdx`);
+    const filePath = path.join(BLOG_DIR, `${slug}.mdx`);
 
     // Lire le contenu actuel du fichier
     const fileContent = await fs.readFile(filePath, "utf-8");
