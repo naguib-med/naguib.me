@@ -223,7 +223,7 @@ export default function BlogList({ initialPosts, categories }: BlogListProps) {
                                                 />
                                             </div>
                                             <div>
-                                                <Label htmlFor="date-to">Jusqu'à</Label>
+                                                <Label htmlFor="date-to">Jusqu&apos;à</Label>
                                                 <input
                                                     type="date"
                                                     id="date-to"

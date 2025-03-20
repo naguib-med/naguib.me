@@ -69,6 +69,7 @@ export function ContactForm() {
                 description: 'Une erreur est survenue lors de l\'envoi du message.',
                 variant: 'destructive',
             });
+            console.log(error);
         } finally {
             setIsSubmitting(false);
         }

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { GraduationCap, Calendar, MapPin } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
 
 import { educationList } from "@/lib/constants";
 
