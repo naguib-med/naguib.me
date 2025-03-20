@@ -5,13 +5,10 @@ import path from "path";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
-type RouteParams = {
-  params: {
-    slug: string;
-  };
-};
-
-export async function DELETE(req: Request, { params }: RouteParams) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
   try {
     const session = await auth();
 
@@ -26,8 +23,12 @@ export async function DELETE(req: Request, { params }: RouteParams) {
       await fs.unlink(filePath);
       return new NextResponse(null, { status: 204 });
     } catch (error) {
-      const nodeError = error as NodeJS.ErrnoException;
-      if (nodeError.code === "ENOENT") {
+      // Vérification de l'erreur ENOENT (fichier non trouvé)
+      if (
+        error instanceof Error &&
+        "code" in error &&
+        error.code === "ENOENT"
+      ) {
         return NextResponse.json(
           { error: "Article non trouvé" },
           { status: 404 }
