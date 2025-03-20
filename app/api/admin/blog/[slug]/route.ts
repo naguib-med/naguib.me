@@ -1,19 +1,22 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import fs from "fs/promises";
 import path from "path";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { slug: string } }
-) {
+type RouteParams = {
+  params: {
+    slug: string;
+  };
+};
+
+export async function DELETE(req: Request, { params }: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user) {
-      return new NextResponse("Non autorisé", { status: 401 });
+      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
 
     const { slug } = params;
@@ -23,13 +26,17 @@ export async function DELETE(
       await fs.unlink(filePath);
       return new NextResponse(null, { status: 204 });
     } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === "ENOENT") {
-        return new NextResponse("Article non trouvé", { status: 404 });
+      const nodeError = error as NodeJS.ErrnoException;
+      if (nodeError.code === "ENOENT") {
+        return NextResponse.json(
+          { error: "Article non trouvé" },
+          { status: 404 }
+        );
       }
       throw error;
     }
   } catch (error) {
     console.error("Erreur lors de la suppression de l'article:", error);
-    return new NextResponse("Erreur serveur", { status: 500 });
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }
