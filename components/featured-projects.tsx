@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import { useRef, useState } from "react";
-import { ArrowRight, Code, Rocket, Star, TrendingUp, Filter, Folder } from "lucide-react";
+import { useRef } from "react";
+import { ArrowRight, Rocket, Star, Filter, Folder } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MagneticButton } from "@/components/magnetic-button";
 import { ProjectCard } from "@/components/project-card";
@@ -29,20 +29,12 @@ export function FeaturedProjects() {
     return 1 - (latest - 0.8) / 0.2;
   });
 
-  // État pour le filtrage optionnel des projets
-  const [activeFilter, setActiveFilter] = useState<string | null>(null);
-
   // Sélection des projets récents avec filtrage optionnel
   const recentProjects = projects
     .filter(project => project.isRecent)
     .slice(0, 3);
 
-  // Extraction des catégories uniques pour un futur filtre
-  const uniqueCategories = Array.from(
-    new Set(projects.flatMap(project => project.tags.map(tag =>
-      typeof tag === 'string' ? tag : tag.name
-    )))
-  ).slice(0, 5); // Limiter à 5 catégories principales
+
 
   return (
     <motion.section
@@ -146,7 +138,7 @@ export function FeaturedProjects() {
               <div className="flex-grow space-y-1">
                 <h3 className="text-lg font-semibold">Projet phare : Application CRA & Fiches de paie</h3>
                 <p className="text-sm text-muted-foreground">
-                  Application fullstack développée en entreprise pendant mon alternance, autonomisant la gestion des comptes-rendus d&apos;activité et l'envoi automatisé des fiches de paie.
+                  Application fullstack développée en entreprise pendant mon alternance, autonomisant la gestion des comptes-rendus d&apos;activité et l&apos;envoi automatisé des fiches de paie.
                 </p>
               </div>
               <MagneticButton>
