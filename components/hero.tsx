@@ -212,7 +212,7 @@ export function Hero() {
                   >
                     {[
                       { value: "3+", label: "Années d'expérience" },
-                      { value: "50+", label: "Projets réalisés" },
+                      { value: "30+", label: "Projets réalisés" },
                       { value: "5+", label: "Articles publiés" },
                     ].map((stat, index) => (
                       <div key={index} className="space-y-1">
