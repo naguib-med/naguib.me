@@ -81,7 +81,7 @@ export const educationList: EducationItem[] = [
     title: "Master en Technologies de l'Information et Web",
     institution: "Université Claude Bernard Lyon 1",
     location: "Lyon, France",
-    period: "2021 - 2024",
+    period: "2022 - 2024",
     description: [
       "Architecture distribuée: monitoring et scaling d'applications sur Kubernetes, circuit breaker pattern, déploiement avec Terraform/Ansible.",
       "Performance: programmation concurrentielle, optimisation BDD distribuées, monitoring d'applications.",

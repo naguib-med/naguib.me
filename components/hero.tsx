@@ -19,18 +19,27 @@ import {
   Server,
   Braces,
   Cpu,
-  ChevronRight
+  ChevronRight,
+  Globe,
+  Layers,
+  Layout,
+  Cloud,
+  BookOpen,
+  Award
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+type CategoryId = "frontend" | "backend" | "devops" | "security";
 
 export function Hero() {
   const router = useRouter();
   const heroRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [activeCategory, setActiveCategory] = useState<"dev" | "sec">("dev");
+
+  const [activeCategory, setActiveCategory] = useState<CategoryId>("frontend");
 
   useEffect(() => {
     setIsLoaded(true);
@@ -46,15 +55,9 @@ export function Hero() {
     return () => window.removeEventListener('mousemove', handleMouseMove as EventListener);
   }, []);
 
+  // Compétences organisées par catégories
   const skills: {
-    dev: Array<{
-      id: number;
-      icon: React.ReactNode;
-      name: string;
-      level: number;
-      description: string;
-    }>;
-    sec: Array<{
+    [key: string]: Array<{
       id: number;
       icon: React.ReactNode;
       name: string;
@@ -62,17 +65,37 @@ export function Hero() {
       description: string;
     }>;
   } = {
-    dev: [
-      { id: 1, icon: <Code size={20} />, name: "React/Next.js", level: 5, description: "Framework frontend, SSR, SPA" },
-      { id: 2, icon: <Braces size={20} />, name: "TypeScript", level: 5, description: "Typage statique, interfaces" },
-      { id: 3, icon: <Database size={20} />, name: "SQL/NoSQL", level: 4, description: "PostgreSQL, MongoDB, Redis" },
-      { id: 4, icon: <Server size={20} />, name: "Node.js", level: 4, description: "Express, API REST, GraphQL" },
+    frontend: [
+      { id: 1, icon: <Code size={20} />, name: "React", level: 4, description: "Hooks, Context, Redux Toolkit" },
+      { id: 2, icon: <Braces size={20} />, name: "JavaScript", level: 4, description: "ES6+, DOM, Async/Await" },
+      { id: 3, icon: <Braces size={20} />, name: "TypeScript", level: 3, description: "Types, Interfaces, Generics" },
+      { id: 4, icon: <Zap size={20} />, name: "TailwindCSS", level: 3, description: "Responsive design, Composants" },
+      { id: 5, icon: <Layout size={20} />, name: "Vue.js", level: 3, description: "Components, Vuex, Vue Router" },
+      { id: 6, icon: <Globe size={20} />, name: "Next.js", level: 2, description: "En apprentissage, App Router" },
     ],
-    sec: [
-      { id: 5, icon: <Shield size={20} />, name: "Sécurité Web", level: 3, description: "OWASP, XSS, CSRF, injections" },
-      { id: 6, icon: <Lock size={20} />, name: "Cryptographie", level: 2, description: "Hashing, JWT, chiffrement" },
-      { id: 7, icon: <Network size={20} />, name: "Réseaux", level: 3, description: "Protocoles, firewall, VPN" },
-      { id: 8, icon: <Cpu size={20} />, name: "DevSecOps", level: 2, description: "CI/CD sécurisé, SAST, DAST" },
+    backend: [
+      { id: 7, icon: <Server size={20} />, name: "Node.js", level: 4, description: "Express.js, API REST" },
+      { id: 8, icon: <Database size={20} />, name: "Bases de données", level: 3, description: "PostgreSQL, MongoDB, MySQL, SQL" },
+      { id: 9, icon: <Layers size={20} />, name: "Java", level: 3, description: "Spring Boot, Swing, Hibernate" },
+      { id: 10, icon: <Braces size={20} />, name: "GraphQL", level: 2, description: "En apprentissage, Schemas" },
+      { id: 11, icon: <Braces size={20} />, name: "Prisma", level: 3, description: "ORM, Migrations, TypeScript" },
+      { id: 12, icon: <Code size={20} />, name: "Python", level: 3, description: "Scripting, Automatisation" },
+    ],
+    devops: [
+      { id: 13, icon: <Server size={20} />, name: "Docker", level: 3, description: "Conteneurisation, Compose" },
+      { id: 14, icon: <Cloud size={20} />, name: "AWS", level: 2, description: "Cloud Services, Notions" },
+      { id: 15, icon: <Cpu size={20} />, name: "Kubernetes", level: 2, description: "Notions, TP Université" },
+      { id: 16, icon: <Layers size={20} />, name: "Terraform", level: 2, description: "Notions, TP Université" },
+      { id: 17, icon: <Server size={20} />, name: "Ansible", level: 2, description: "Configuration, Automatisation" },
+      { id: 18, icon: <Zap size={20} />, name: "CI/CD", level: 2, description: "GitLab CI, GitHub Actions" },
+    ],
+    security: [
+      { id: 19, icon: <Shield size={20} />, name: "OWASP", level: 2, description: "Top 10, Vulnérabilités Web" },
+      { id: 20, icon: <Lock size={20} />, name: "Auth Systems", level: 3, description: "OpenID-Connect, CAS, JWT" },
+      { id: 21, icon: <Network size={20} />, name: "DevSecOps", level: 2, description: "Pratiques, Intégration" },
+      { id: 22, icon: <Layers size={20} />, name: "Risk Analysis", level: 2, description: "EBIOS, Évaluation" },
+      { id: 23, icon: <Server size={20} />, name: "Vault", level: 2, description: "Gestion des secrets" },
+      { id: 24, icon: <Server size={20} />, name: "Prometheus", level: 2, description: "Monitoring, TP Université" },
     ]
   };
 
@@ -89,6 +112,14 @@ export function Hero() {
     { icon: <Github className="h-5 w-5" />, url: "https://github.com/naguib-med", label: "Github" },
     { icon: <Linkedin className="h-5 w-5" />, url: "https://www.linkedin.com/in/naguib-mohamed-mahamoud/", label: "LinkedIn" },
     { icon: <Twitter className="h-5 w-5" />, url: "https://x.com/NaguibMoma", label: "Twitter" },
+  ];
+
+  // Catégories pour les tabs
+  const categories = [
+    { id: "frontend", label: "Frontend", icon: <Layout size={16} /> },
+    { id: "backend", label: "Backend", icon: <Server size={16} /> },
+    { id: "devops", label: "DevOps", icon: <Cloud size={16} /> },
+    { id: "security", label: "Sécurité", icon: <Shield size={16} /> },
   ];
 
   return (
@@ -125,9 +156,17 @@ export function Hero() {
                     className="space-y-2 mb-6"
                   >
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 backdrop-blur-md border border-primary/20 rounded-full">
-                      <Zap size={16} className="text-primary" />
+                      <BookOpen size={16} className="text-primary" />
                       <span className="text-sm font-medium bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-                        Fullstack & Cybersécurité
+                        Titulaire M2 Technologies de l&apos;Information et Web - Lyon 1
+                      </span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 backdrop-blur-md border border-primary/20 rounded-full">
+                      <Shield size={16} className="text-primary" />
+                      <span className="text-sm font-medium bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
+                        <a href="https://github.com/devsecblueprint/devsecblueprint" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                          Contributeur DevSecBlueprint (DSB) – Pipelines DevSecOps GitLab/Azure
+                        </a>
                       </span>
                     </div>
                   </motion.div>
@@ -146,16 +185,17 @@ export function Hero() {
                       <span className="block">Ingénieur</span>
                       <div className="relative mt-2">
                         <span className="relative z-10 inline-block bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
-                          Fullstack | Futur Expert Cybersécurité
+                          Fullstack | Futur Expert DevSecOps
                         </span>
                         <span className="absolute -inset-1 block rounded-lg bg-gradient-to-r from-primary/20 via-violet-500/20 to-blue-500/20 opacity-30 blur-xl -z-10"></span>
                       </div>
                     </h1>
 
                     <p className="text-lg text-muted-foreground">
+                      Développeur web fullstack passionné, évoluant vers le DevSecOps.
                       Je conçois des applications web robustes et sécurisées,
-                      en combinant expertise fullstack et mesures de protection
-                      avancées pour des expériences utilisateur optimales.
+                      en combinant expertise technique et principes de sécurité
+                      pour des expériences utilisateur optimales.
                     </p>
                   </motion.div>
                 )}
@@ -173,7 +213,7 @@ export function Hero() {
                     {[
                       { value: "3+", label: "Années d'expérience" },
                       { value: "50+", label: "Projets réalisés" },
-                      { value: "5+", label: "Articles publiés" }
+                      { value: "5+", label: "Articles publiés" },
                     ].map((stat, index) => (
                       <div key={index} className="space-y-1">
                         <div className="text-3xl font-bold">{stat.value}</div>
@@ -218,13 +258,33 @@ export function Hero() {
                 )}
               </AnimatePresence>
 
-              {/* Social links */}
+              {/* Education Badge */}
               <AnimatePresence>
                 {isLoaded && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.4 }}
+                    className="flex items-center gap-4 p-4 mb-6 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                      <Award size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-medium">Master 2 Technologies de l&apos;Information et Web</h4>
+                      <p className="text-sm text-muted-foreground">Université Claude Bernard Lyon 1</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Social links */}
+              <AnimatePresence>
+                {isLoaded && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.5 }}
                     className="flex items-center gap-4"
                   >
                     <span className="text-sm text-muted-foreground mr-2">Suivez-moi</span>
@@ -238,7 +298,7 @@ export function Hero() {
                         whileHover={{ scale: 1.1 }}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + (i * 0.1) }}
+                        transition={{ delay: 0.6 + (i * 0.1) }}
                         aria-label={link.label}
                       >
                         <span className="text-muted-foreground group-hover:text-primary transition-colors">
@@ -253,33 +313,26 @@ export function Hero() {
 
             {/* Right column - Skills */}
             <motion.div
-              className="lg:col-span-7 space-y-8"
+              className="lg:col-span-7 space-y-6"
             >
               {/* Tab selector */}
-              <div className="flex justify-start mb-4">
+              <div className="flex justify-start mb-4 overflow-x-auto pb-2">
                 <div className="inline-flex p-1 gap-1 rounded-full bg-muted">
-                  <button
-                    onClick={() => setActiveCategory("dev")}
-                    className={cn(
-                      "px-5 py-2.5 rounded-full text-sm font-medium transition-all",
-                      activeCategory === "dev"
-                        ? "bg-background text-foreground shadow-sm"
-                        : "bg-transparent text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    Développement
-                  </button>
-                  <button
-                    onClick={() => setActiveCategory("sec")}
-                    className={cn(
-                      "px-5 py-2.5 rounded-full text-sm font-medium transition-all",
-                      activeCategory === "sec"
-                        ? "bg-background text-foreground shadow-sm"
-                        : "bg-transparent text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    Cybersécurité
-                  </button>
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setActiveCategory(category.id as CategoryId)}
+                      className={cn(
+                        "px-4 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                        activeCategory === category.id
+                          ? "bg-background text-foreground shadow-sm"
+                          : "bg-transparent text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {category.icon}
+                      {category.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -327,22 +380,40 @@ export function Hero() {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Featured badge - highlight aspirations/ongoing journey */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-                className="flex items-center gap-4 p-4 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm max-w-lg ml-auto"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
-                  <Shield size={24} />
-                </div>
-                <div>
-                  <h4 className="text-base font-medium">En formation Cybersécurité</h4>
-                  <p className="text-sm text-muted-foreground">OWASP • Sécurité Web • Préparation certifications</p>
-                </div>
-                <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
-              </motion.div>
+              {/* Highlights - Show specializations */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.6 }}
+                  className="flex items-center gap-4 p-4 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                >
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
+                    <Shield size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-medium">En formation DevSecOps</h4>
+                    <p className="text-sm text-muted-foreground">OWASP • Sécurité Web • Évaluation des risques</p>
+                  </div>
+                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.7 }}
+                  className="flex items-center gap-4 p-4 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                >
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-violet-500/20 text-violet-500">
+                    <Zap size={24} />
+                  </div>
+                  <div>
+                    <h4 className="text-base font-medium">Outils DevOps</h4>
+                    <p className="text-sm text-muted-foreground">RabbitMQ • Prometheus • Vault • Terraform</p>
+                  </div>
+                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
