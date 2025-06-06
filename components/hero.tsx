@@ -161,14 +161,7 @@ export function Hero() {
                         Titulaire M2 Technologies de l&apos;Information et Web - Lyon 1
                       </span>
                     </div>
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 backdrop-blur-md border border-primary/20 rounded-full">
-                      <Shield size={16} className="text-primary" />
-                      <span className="text-sm font-medium bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-                        <a href="https://github.com/devsecblueprint/devsecblueprint" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                          Contributeur DevSecBlueprint (DSB) – Pipelines DevSecOps GitLab/Azure
-                        </a>
-                      </span>
-                    </div>
+
                   </motion.div>
                 )}
               </AnimatePresence>
