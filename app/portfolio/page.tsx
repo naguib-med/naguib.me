@@ -76,8 +76,8 @@ export default function PortfolioPage() {
         <div className="flex min-h-screen flex-col">
             <PageHeader
                 title="Portfolio"
-                description="Découvrez mes projets et réalisations en développement web et mobile."
-                gradient="from-primary/80 via-primary to-primary/60"
+                description="Mes projets de développement web réalisés en apprentissage et en entreprise. Environ 2 ans d'expérience pratique."
+                gradient="from-primary/80 via-accent to-accent/60"
             />
 
             <motion.div className="container py-12 md:py-20 mx-auto">

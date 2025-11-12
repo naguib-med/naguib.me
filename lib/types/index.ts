@@ -20,4 +20,6 @@ export type EducationItem = {
   period: string;
   description: string[];
   tags?: string[];
+  highlight?: boolean;
+  badge?: string;
 };

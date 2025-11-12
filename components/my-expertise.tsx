@@ -19,62 +19,73 @@ const expertiseAreas = [
   {
     icon: Code,
     title: "Développement Frontend",
-    description: "Création d'applications web réactives et performantes avec les technologies modernes.",
-    skills: ["React", "Redux", "TypeScript", "JavaScript", "TailwindCSS", "Vue.js"],
-    projects: ["App CRA & Fiches de paie (Entreprise/M2)", "Dashboard d'analytics", "Applications SPA"],
-    color: "text-blue-500",
-    accentColor: "bg-blue-500/10",
-    borderColor: "group-hover:border-blue-500/30"
+    description: "Création d'interfaces modernes et réactives avec React, TypeScript et design responsive. Environ 2 ans d'expérience pratique.",
+    skills: ["React", "Next.js", "TypeScript", "JavaScript", "TailwindCSS", "Responsive Design"],
+    projects: ["Dashboard Analytics", "CRA & Fiches de paie", "Applications SPA"],
+    color: "text-primary",
+    accentColor: "bg-primary/5",
+    borderColor: "group-hover:border-primary/40",
+    iconBg: "from-primary/20 to-secondary/10"
   },
   {
     icon: Server,
     title: "Développement Backend",
-    description: "Architecture et implémentation de systèmes robustes et évolutifs.",
-    skills: ["Node.js", "Express", "Java Spring", "RESTful APIs", "GraphQL", "Prisma"],
-    projects: ["API CRA & Fiches de paie (Entreprise)", "Automatisation envoi documents", "Systèmes d'authentification"],
-    color: "text-green-500",
-    accentColor: "bg-green-500/10",
-    borderColor: "group-hover:border-green-500/30"
+    description: "Développement d'API RESTful et architecture backend avec Node.js et NestJS. Expérience en alternance chez Bifora.",
+    skills: ["Node.js", "NestJS", "Express", "Prisma", "RESTful APIs", "JWT"],
+    projects: ["API CRA Enterprise", "Backend IZO-LEARN", "Auth Systems"],
+    color: "text-secondary",
+    accentColor: "bg-secondary/5",
+    borderColor: "group-hover:border-secondary/40",
+    iconBg: "from-secondary/20 to-primary/10"
+  },
+  {
+    icon: Shield,
+    title: "Cybersécurité & Sécurité Applicative",
+    description: "Étudiant Master 2 OPSIE (Label ANSSI). En apprentissage de la sécurité des SI, OWASP Top 10 et gestion des risques.",
+    skills: ["OWASP Top 10", "Sécurité Web", "EBIOS RM", "ISO 27001", "Audit SSI", "Sensibilisation"],
+    projects: ["Aidant Cyber ANSSI", "DevSecBlueprint", "Sécurisation backends"],
+    color: "text-accent",
+    accentColor: "bg-accent/5",
+    borderColor: "group-hover:border-accent/40",
+    iconBg: "from-accent/20 to-orange-500/10"
   },
   {
     icon: Database,
     title: "Bases de Données",
-    description: "Conception et optimisation de structures de données pour applications performantes.",
-    skills: ["PostgreSQL", "MongoDB", "MySQL", "SQL", "Redis", "NoSQL"],
-    projects: ["Optimisation de requêtes", "Migration de données", "Modélisation"],
-    color: "text-amber-500",
-    accentColor: "bg-amber-500/10",
-    borderColor: "group-hover:border-amber-500/30"
-  },
-  {
-    icon: Shield,
-    title: "DevSecOps",
-    description: "Intégration de la sécurité dans le cycle de développement et déploiement.",
-    skills: ["OWASP", "CI/CD", "Terraform", "Docker", "Kubernetes", "Vault"],
-    projects: ["Pipeline sécurisé", "Audit de vulnérabilités", "DevSecBlueprint"],
-    color: "text-red-500",
-    accentColor: "bg-red-500/10",
-    borderColor: "group-hover:border-red-500/30"
+    description: "Conception et gestion de bases de données relationnelles et NoSQL. Expérience avec PostgreSQL, MongoDB et MySQL.",
+    skills: ["PostgreSQL", "MongoDB", "MySQL", "Prisma ORM", "SQL", "Modélisation"],
+    projects: ["Migration MongoDB", "Optimisation requêtes", "Schémas Prisma"],
+    color: "text-success",
+    accentColor: "bg-success/5",
+    borderColor: "group-hover:border-success/40",
+    iconBg: "from-success/20 to-success/10"
   },
   {
     icon: Braces,
-    title: "Développement Java",
-    description: "Conception et développement d'applications robustes avec Java et ses frameworks.",
-    skills: ["Spring Boot", "Hibernate", "Java Swing", "Microservices", "JUnit", "Maven"],
-    projects: ["API gestion utilisateurs (Lyon 1)", "App de rendez-vous médicaux (type Doctolib)", "Micro spring framework"],
-    color: "text-indigo-500",
-    accentColor: "bg-indigo-500/10",
-    borderColor: "group-hover:border-indigo-500/30"
+    title: "DevOps & Infrastructure (en apprentissage)",
+    description: "Apprentissage des pratiques DevOps, conteneurisation avec Docker et CI/CD. Connaissances académiques et projets personnels.",
+    skills: ["Docker", "GitHub Actions", "CI/CD", "Linux", "Git", "Bash"],
+    projects: ["Conteneurisation apps", "Pipeline CI/CD", "Déploiement Vercel"],
+    color: "text-violet-500",
+    accentColor: "bg-violet-500/5",
+    borderColor: "group-hover:border-violet-500/40",
+    iconBg: "from-violet-500/20 to-purple-500/10"
   },
   {
     icon: Zap,
-    title: "Performance & Optimisation",
-    description: "Amélioration des performances et optimisation des applications web.",
-    skills: ["Web Vitals", "Caching", "Lazy Loading", "Bundling", "Lighthouse", "SEO"],
-    projects: ["Optimisation de chargement", "PWA", "Audit de performance"],
-    color: "text-yellow-500",
-    accentColor: "bg-yellow-500/10",
-    borderColor: "group-hover:border-yellow-500/30"
+    title: "Qualité & Bonnes Pratiques",
+    description: "Application des bonnes pratiques de développement, revue de code et tests. Méthodologie Agile en entreprise.",
+    skills: ["Code Review", "Testing", "Git", "Agile", "Documentation", "Clean Code"],
+    projects: ["Revue de code Bifora", "Tests unitaires", "Documentation technique"],
+    color: "text-warning",
+    accentColor: "bg-warning/5",
+    borderColor: "group-hover:border-warning/40",
+    iconBg: "from-warning/20 to-warning/10"
+  },
+];
+    accentColor: "bg-cyan-500/5",
+    borderColor: "group-hover:border-cyan-500/40",
+    iconBg: "from-cyan-500/10 to-blue-500/10"
   },
 ];
 
@@ -96,57 +107,59 @@ export function MyExpertise() {
   return (
     <motion.section
       ref={containerRef}
-      className="relative overflow-hidden py-24 my-12"
+      className="relative overflow-hidden py-32 my-16"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true, margin: "-100px" }}
     >
-      {/* Arrière-plan interactif */}
+      {/* Subtle background */}
       <div className="absolute inset-0">
-        <motion.div
-          className="absolute inset-0 bg-grid-pattern opacity-[0.03]"
-          style={{ y: backgroundY }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-primary/5 opacity-30" />
-        <div className="absolute top-0 left-1/3 h-[500px] w-[800px] rounded-full bg-primary/5 blur-[120px] -z-10" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[600px] rounded-full bg-blue-500/5 blur-[100px] -z-10" />
+        <div className="absolute top-1/4 right-1/4 h-[600px] w-[800px] rounded-full bg-primary/3 blur-[150px]" />
+        <div className="absolute bottom-1/3 left-1/4 h-[500px] w-[700px] rounded-full bg-accent/2 blur-[130px]" />
       </div>
+
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.012]" />
 
       <div
         ref={ref}
         className="container relative mx-auto px-6 z-10"
       >
         {/* En-tête de section */}
-        <div className="mx-auto max-w-2xl text-center mb-16">
+        <div className="mx-auto max-w-3xl text-center mb-20">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-medium text-primary"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-accent/30 bg-gradient-to-r from-accent/10 to-primary/10 px-6 py-3 text-sm font-bold text-foreground mb-6 backdrop-blur-sm"
           >
-            <Brain className="h-4 w-4" />
-            Stack Technique & Expertise
+            <Brain className="h-5 w-5 text-accent" />
+            Compétences & Technologies
           </motion.div>
 
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-5 text-3xl font-bold tracking-tight sm:text-4xl"
+            className="mt-6 text-4xl sm:text-5xl font-bold tracking-tight text-foreground"
           >
-            <span className="bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
-              Technologies & Compétences
-            </span>
+            Mon Stack Technique
           </motion.h2>
 
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={inView ? { y: 0, opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-lg text-muted-foreground/90 max-w-xl mx-auto"
+            className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
           >
-            Un ensemble complet de compétences et technologies pour transformer vos idées en solutions digitales robustes et sécurisées.
+            Développeur Full Stack avec ~2 ans d&apos;expérience et étudiant en cybersécurité. 
+            Passionné par l&apos;apprentissage des technologies modernes et des bonnes pratiques de sécurité.
+          </motion.p>
+            animate={inView ? { y: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
+          >
+            Une expertise complète en développement et cybersécurité pour créer des solutions digitales robustes, performantes et sécurisées.
           </motion.p>
         </div>
 
@@ -173,63 +186,63 @@ export function MyExpertise() {
               >
                 <motion.div
                   whileHover={{
-                    scale: 1.02,
+                    scale: 1.03,
                     transition: { duration: 0.3 },
                   }}
                   className={`
                     relative overflow-hidden rounded-2xl 
-                    bg-card/50 border border-border/40
-                    transition-all duration-300 
-                    hover:shadow-lg hover:shadow-primary/10
+                    bg-card border-2 border-border
+                    transition-all duration-500
+                    hover:shadow-2xl hover:shadow-primary/10
                     ${area.borderColor}
                   `}
                 >
-                  {/* Effet de gradient sur le bord supérieur */}
-                  <div className={`absolute inset-x-0 h-1 top-0 transform origin-left transition-transform duration-500 ${isActive ? 'scale-x-100' : 'scale-x-0'} bg-gradient-to-r from-primary to-${area.color.replace('text-', '')}`}></div>
+                  {/* Gradient bar on top */}
+                  <div className={`absolute inset-x-0 h-1.5 top-0 transform origin-left transition-transform duration-700 ${isActive ? 'scale-x-100' : 'scale-x-0'} bg-gradient-to-r ${area.iconBg.replace('bg-', '').replace('/10', '')}`}></div>
 
-                  {/* Contenu principal */}
-                  <div className="relative z-10 p-6">
-                    <div className="flex items-center gap-4 mb-4">
+                  {/* Content */}
+                  <div className="relative z-10 p-8">
+                    <div className="flex items-start gap-5 mb-5">
                       <div
                         className={`
-                          relative flex h-12 w-12 
+                          relative flex h-16 w-16 
                           items-center justify-center 
-                          rounded-xl ${area.accentColor}
-                          border border-primary/10
-                          transition-all duration-300
-                          group-hover:shadow-sm
-                          group-hover:border-opacity-40
-                          group-hover:scale-110
+                          rounded-2xl bg-gradient-to-br ${area.iconBg}
+                          border-2 ${area.color.replace('text-', 'border-')}/20
+                          transition-all duration-500
+                          group-hover:scale-110 group-hover:rotate-3
                         `}
                       >
                         <Icon
-                          className={`h-6 w-6 ${area.color} transition-transform group-hover:scale-110`}
+                          className={`h-8 w-8 ${area.color} transition-all duration-500 group-hover:scale-110`}
                         />
                       </div>
-                      <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
-                        {area.title}
-                      </h3>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 mb-2">
+                          {area.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {area.description}
+                        </p>
+                      </div>
                     </div>
 
-                    <p className="text-sm text-muted-foreground mb-4 group-hover:text-foreground/90 transition-colors duration-300">
-                      {area.description}
-                    </p>
-
-                    {/* Compétences */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {area.skills.slice(0, 6).map((skill) => (
+                    {/* Skills */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {area.skills.map((skill) => (
                         <span
                           key={skill}
                           className={`
-                            inline-flex items-center rounded-full 
+                            inline-flex items-center rounded-xl 
                             ${area.accentColor}
-                            px-3 py-1 
-                            text-xs font-medium 
+                            px-3.5 py-1.5
+                            text-xs font-semibold 
                             ${area.color}
-                            ring-1 ring-inset ring-primary/10
+                            border border-${area.color.replace('text-', '')}/10
                             transition-all duration-300
-                            hover:ring-primary/20
+                            hover:border-${area.color.replace('text-', '')}/30
                             hover:scale-105
+                            hover:shadow-sm
                           `}
                         >
                           {skill}
@@ -237,22 +250,21 @@ export function MyExpertise() {
                       ))}
                     </div>
 
-                    {/* Projets représentatifs */}
-                    <div className="mt-4 pt-4 border-t border-border/20">
-                      <h4 className="text-xs uppercase tracking-wider text-muted-foreground mb-2 font-medium">
-                        Projets concrets
+                    {/* Projects */}
+                    <div className="pt-5 border-t border-border/50">
+                      <h4 className="text-xs uppercase tracking-wider text-muted-foreground/80 mb-3 font-bold flex items-center gap-2">
+                        <div className={`h-1 w-1 rounded-full ${area.color.replace('text-', 'bg-')}`} />
+                        Projets Représentatifs
                       </h4>
-                      <ul className="space-y-1">
+                      <ul className="space-y-2">
                         {area.projects.map((project, i) => (
-                          <li key={i} className="text-xs flex items-center text-muted-foreground group-hover:text-foreground/80">
-                            <ChevronRight className="h-3 w-3 mr-1 inline opacity-70" />
+                          <li key={i} className="text-sm flex items-center text-muted-foreground group-hover:text-foreground/90 transition-colors duration-300">
+                            <ChevronRight className={`h-4 w-4 mr-2 ${area.color} opacity-60`} />
                             {project}
                           </li>
                         ))}
                       </ul>
                     </div>
-
-
                   </div>
                 </motion.div>
               </motion.div>
@@ -260,29 +272,30 @@ export function MyExpertise() {
           })}
         </div>
 
-        {/* Bannière additionnelle pour formation continue */}
+        {/* Bannière formation continue */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
-          className="mt-12 mx-auto max-w-4xl"
+          className="mt-16 mx-auto max-w-5xl"
         >
-          <div className="rounded-2xl bg-card/30 border border-border/40 p-6 backdrop-blur-sm">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <BookOpen className="h-6 w-6" />
+          <div className="rounded-2xl bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent border-2 border-border hover:border-primary/30 p-8 backdrop-blur-sm transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
+                <BookOpen className="h-8 w-8" />
               </div>
               <div className="flex-grow">
-                <h3 className="text-lg font-semibold mb-1">Formation continue & veille technologique</h3>
-                <p className="text-sm text-muted-foreground">
-                  Je me forme continuellement sur les nouvelles technologies et meilleures pratiques, notamment en DevSecOps, à travers des certifications, ateliers et projets open-source.
+                <h3 className="text-xl font-bold mb-2 text-foreground">Formation Continue & Veille Technologique</h3>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  Apprentissage constant des nouvelles technologies et meilleures pratiques en DevSecOps, 
+                  à travers certifications professionnelles, workshops et contributions open-source.
                 </p>
               </div>
-              <div className="flex shrink-0 gap-2 mt-4 md:mt-0">
-                <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+              <div className="flex shrink-0 flex-wrap gap-2 mt-4 md:mt-0">
+                <span className="inline-flex items-center rounded-xl bg-primary/10 border border-primary/20 px-4 py-2 text-sm font-semibold text-primary">
                   DevSecBlueprint
                 </span>
-                <span className="inline-flex items-center rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-500">
+                <span className="inline-flex items-center rounded-xl bg-accent/10 border border-accent/20 px-4 py-2 text-sm font-semibold text-accent">
                   Certifications
                 </span>
               </div>

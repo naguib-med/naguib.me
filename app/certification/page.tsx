@@ -187,8 +187,8 @@ export default function CertificationsPage() {
         <div className="flex min-h-screen flex-col">
             <PageHeader
                 title="Certifications"
-                description="Mes qualifications professionnelles et certifications techniques."
-                gradient="from-primary/80 via-primary to-primary/60"
+                description="Formations techniques et certifications en développement web. Parcours d'apprentissage continu depuis 2020."
+                gradient="from-accent/80 via-primary to-secondary/60"
             />
 
             <motion.div className="container py-12 md:py-20 mx-auto">
@@ -418,14 +418,14 @@ export default function CertificationsPage() {
 function CertificationCardGrid({ certification }: { certification: CertificationType }) {
     return (
         <motion.div
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            className="h-full group relative flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all hover:shadow-md"
+            whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3 } }}
+            className="h-full group relative flex flex-col overflow-hidden rounded-2xl border-2 border-border bg-card shadow-sm transition-all hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 cyber-border"
         >
             {certification.image && (
-                <div className="relative aspect-video overflow-hidden border-b">
+                <div className="relative aspect-video overflow-hidden">
                     {typeof certification.image === 'string' ? (
                         <div
-                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-500 group-hover:scale-110"
                             style={{ backgroundImage: `url(${certification.image})` }}
                         />
                     ) : (
@@ -433,56 +433,60 @@ function CertificationCardGrid({ certification }: { certification: Certification
                             src={certification.image}
                             alt={certification.title}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-background/20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
                 </div>
             )}
 
             <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                    <div className="mb-2">
-                        <span className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
+                    <div className="mb-3">
+                        <span className="inline-flex items-center rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 px-3 py-1.5 text-xs font-bold text-primary border border-primary/20">
                             {certification.category}
                         </span>
                     </div>
-                    <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300">
                         {certification.title}
                     </h3>
-                    <div className="mt-2 flex items-center text-sm text-muted-foreground">
-                        <Calendar className="mr-1 h-3.5 w-3.5" />
+                    <div className="mt-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+                        <Calendar className="h-4 w-4 text-accent" />
                         {certification.date}
-                        {certification.expirationDate && ` - ${certification.expirationDate}`}
                     </div>
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <p className="mt-2 text-sm font-semibold text-foreground">
                         {certification.issuer}
                     </p>
 
                     {certification.description && (
-                        <p className="mt-4 text-sm text-muted-foreground line-clamp-3">
+                        <p className="mt-4 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                             {certification.description}
                         </p>
                     )}
 
                     {certification.credentialId && (
-                        <div className="mt-3 text-xs text-muted-foreground">
-                            <span className="font-semibold">ID:</span> {certification.credentialId}
+                        <div className="mt-3 px-3 py-2 rounded-lg bg-muted/50 text-xs text-muted-foreground font-mono">
+                            <span className="font-bold">ID:</span> {certification.credentialId}
                         </div>
                     )}
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-6 space-y-4">
                     {certification.skills && certification.skills.length > 0 && (
-                        <div className="mb-4 flex flex-wrap gap-2">
-                            {certification.skills.map((skill, index) => (
+                        <div className="flex flex-wrap gap-2">
+                            {certification.skills.slice(0, 3).map((skill, index) => (
                                 <span
                                     key={index}
-                                    className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"
+                                    className="inline-flex items-center rounded-lg bg-secondary/10 px-2.5 py-1 text-xs font-semibold text-secondary border border-secondary/20"
                                 >
                                     {skill}
                                 </span>
                             ))}
+                            {certification.skills.length > 3 && (
+                                <span className="inline-flex items-center rounded-lg bg-muted px-2.5 py-1 text-xs font-semibold text-muted-foreground">
+                                    +{certification.skills.length - 3}
+                                </span>
+                            )}
                         </div>
                     )}
 
@@ -490,7 +494,7 @@ function CertificationCardGrid({ certification }: { certification: Certification
                         <Button
                             variant="outline"
                             size="sm"
-                            className="w-full group/btn"
+                            className="w-full group/btn rounded-xl border-2 hover:border-primary hover:bg-primary/5 font-semibold"
                             asChild
                         >
                             <a
@@ -499,7 +503,8 @@ function CertificationCardGrid({ certification }: { certification: Certification
                                 rel="noopener noreferrer"
                                 className="flex items-center justify-center"
                             >
-                                Vérifier <ExternalLink className="ml-2 h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
+                                Vérifier la Certification
+                                <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                             </a>
                         </Button>
                     )}

@@ -36,17 +36,17 @@ export function ProjectCard({ project, index, variant = 'grid' }: ProjectCardPro
     const getStatusColor = (status: string) => {
         switch (status.toLowerCase()) {
             case 'en cours':
-                return 'bg-blue-500 text-white';
+                return 'bg-warning/90 text-white border-2 border-warning';
             case 'terminé':
-                return 'bg-green-500 text-white';
+                return 'bg-success/90 text-white border-2 border-success';
             case 'en maintenance':
-                return 'bg-amber-500 text-white';
+                return 'bg-accent/90 text-white border-2 border-accent';
             case 'planifié':
-                return 'bg-purple-500 text-white';
+                return 'bg-primary/90 text-white border-2 border-primary';
             case 'abandonné':
-                return 'bg-gray-500 text-white';
+                return 'bg-muted text-muted-foreground border-2 border-border';
             default:
-                return 'bg-gray-700 text-white';
+                return 'bg-secondary/90 text-white border-2 border-secondary';
         }
     }
 
@@ -54,8 +54,8 @@ export function ProjectCard({ project, index, variant = 'grid' }: ProjectCardPro
 
     return variant === 'grid' ? (
         <motion.div
-            className="group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-all hover:shadow-md"
-            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="group relative flex h-full flex-col overflow-hidden rounded-2xl border-2 border-border bg-card shadow-sm transition-all hover:shadow-xl hover:shadow-primary/10 hover:border-primary/30 cyber-border"
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay }}
@@ -66,46 +66,58 @@ export function ProjectCard({ project, index, variant = 'grid' }: ProjectCardPro
                     alt={project.title}
                     width={400}
                     height={225}
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 {project.status && (
-                    <div className={`absolute top-2 right-2 px-2 py-1 rounded-md text-xs font-medium ${getStatusColor(project.status)}`}>
+                    <div className={`absolute top-3 right-3 px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg ${getStatusColor(project.status)}`}>
                         {project.status}
+                    </div>
+                )}
+                {project.isRecent && (
+                    <div className="absolute top-3 left-3 px-3 py-1.5 rounded-xl text-xs font-bold bg-accent text-white border-2 border-accent shadow-lg">
+                        ⭐ Récent
                     </div>
                 )}
             </div>
             <div className="flex flex-1 flex-col justify-between p-6">
                 <div>
-                    <h3 className="text-xl font-semibold tracking-tight">{project.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground line-clamp-3">
+                    <h3 className="text-xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300">{project.title}</h3>
+                    <p className="mt-3 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
                         {project.description}
                     </p>
                 </div>
-                <div className="mt-6">
-                    <div className="mb-4 flex flex-wrap gap-2">
-                        {project.tags.map((tag) => {
+                <div className="mt-6 space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                        {project.tags.slice(0, 4).map((tag) => {
                             const normalizedTag = getNormalizedTag(tag)
                             return (
                                 <span
                                     key={normalizedTag.name}
-                                    className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20"                                >
+                                    className="inline-flex items-center rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
+                                >
                                     {normalizedTag.name}
                                 </span>
                             )
                         })}
+                        {project.tags.length > 4 && (
+                            <span className="inline-flex items-center rounded-lg bg-muted px-3 py-1.5 text-xs font-semibold text-muted-foreground">
+                                +{project.tags.length - 4}
+                            </span>
+                        )}
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-3">
                         {project.githubUrl && (
-                            <Button asChild size="sm" variant="outline">
-                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <Button asChild size="sm" variant="outline" className="flex-1 rounded-xl border-2 hover:border-primary hover:bg-primary/5 transition-all">
+                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                                     <Github className="mr-2 h-4 w-4" />
                                     Code
                                 </a>
                             </Button>
                         )}
                         {project.demoUrl && (
-                            <Button asChild size="sm" variant="outline">
-                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                            <Button asChild size="sm" className="flex-1 rounded-xl bg-gradient-to-r from-primary to-accent border-0 hover:scale-105 transition-all">
+                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center">
                                     <ExternalLink className="mr-2 h-4 w-4" />
                                     Demo
                                 </a>

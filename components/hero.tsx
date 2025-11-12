@@ -127,19 +127,23 @@ export function Hero() {
       ref={heroRef}
       className="relative min-h-screen w-full overflow-hidden bg-background py-20"
     >
+      {/* Subtle gradient overlays */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 h-[600px] w-[800px] rounded-full bg-primary/3 blur-[150px]" />
+        <div className="absolute bottom-1/4 right-0 h-[500px] w-[700px] rounded-full bg-secondary/3 blur-[130px]" />
+        <div className="absolute top-1/2 left-0 h-[400px] w-[600px] rounded-full bg-accent/2 blur-[120px]" />
+      </div>
+
+      {/* Grid pattern - more subtle */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.015]" />
+
+      {/* Interactive cursor effect - more subtle */}
       <div
         className="fixed inset-0 z-10 pointer-events-none"
         style={{
-          background: `radial-gradient(800px circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(124, 58, 237, 0.07), transparent 40%)`
+          background: `radial-gradient(600px circle at ${cursorPosition.x}px ${cursorPosition.y}px, rgba(59, 130, 246, 0.04), transparent 50%)`
         }}
       />
-
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] -z-10" />
-      <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.015] -z-10" />
-
-      <div className="absolute top-0 left-1/3 h-[500px] w-[800px] rounded-full bg-primary/5 blur-[120px] -z-10" />
-      <div className="absolute bottom-1/3 right-0 h-[400px] w-[600px] rounded-full bg-blue-500/5 blur-[100px] -z-10" />
-      <div className="absolute bottom-0 left-0 h-[300px] w-[500px] rounded-full bg-violet-500/5 blur-[80px] -z-10" />
 
       {/* Main content container */}
       <div className="container relative z-20 mx-auto px-6 lg:px-8 py-12 lg:py-0">
@@ -155,10 +159,15 @@ export function Hero() {
                     transition={{ duration: 0.6 }}
                     className="space-y-2 mb-6"
                   >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 backdrop-blur-md border border-primary/20 rounded-full">
-                      <BookOpen size={16} className="text-primary" />
-                      <span className="text-sm font-medium bg-gradient-to-r from-primary to-blue-500 bg-clip-text text-transparent">
-                        Titulaire M2 Technologies de l&apos;Information et Web - Lyon 1
+                    <div className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-md border border-primary/20 rounded-full">
+                      <Shield size={16} className="text-primary" />
+                      <span className="text-sm font-medium text-foreground">
+                        Dev & Cybersécurité
+                      </span>
+                      <div className="h-4 w-px bg-border mx-1" />
+                      <Code size={16} className="text-secondary" />
+                      <span className="text-sm font-medium text-muted-foreground">
+                        DevSecOps
                       </span>
                     </div>
 
@@ -175,20 +184,22 @@ export function Hero() {
                     className="space-y-6 mb-8"
                   >
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-                      <span className="block">Ingénieur</span>
-                      <div className="relative mt-2">
-                        <span className="relative z-10 inline-block bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
-                          Fullstack | Futur Expert DevSecOps
+                      <span className="block text-foreground">Développeur Fullstack</span>
+                      <div className="relative mt-3 flex flex-col sm:flex-row gap-2 sm:gap-3 items-start">
+                        <span className="relative z-10 inline-block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                          & Cybersécurité
                         </span>
-                        <span className="absolute -inset-1 block rounded-lg bg-gradient-to-r from-primary/20 via-violet-500/20 to-blue-500/20 opacity-30 blur-xl -z-10"></span>
+                        <div className="hidden sm:block text-muted-foreground">•</div>
+                        <span className="relative z-10 inline-block bg-gradient-to-r from-accent to-orange-500 bg-clip-text text-transparent">
+                          DevSecOps
+                        </span>
                       </div>
                     </h1>
 
-                    <p className="text-lg text-muted-foreground">
-                      Développeur web fullstack passionné, évoluant vers le DevSecOps.
-                      Je conçois des applications web robustes et sécurisées,
-                      en combinant expertise technique et principes de sécurité
-                      pour des expériences utilisateur optimales.
+                    <p className="text-lg text-muted-foreground leading-relaxed">
+                      Ingénieur spécialisé dans le développement d&apos;applications web sécurisées 
+                      et performantes. J&apos;intègre les principes de sécurité dès la conception 
+                      pour créer des solutions robustes et fiables.
                     </p>
                   </motion.div>
                 )}
@@ -204,13 +215,14 @@ export function Hero() {
                     className="flex flex-wrap gap-8 mb-10"
                   >
                     {[
-                      { value: "3+", label: "Années d'expérience" },
-                      { value: "30+", label: "Projets réalisés" },
-                      { value: "5+", label: "Articles publiés" },
+                      { value: "3+", label: "Années", sublabel: "d'expérience" },
+                      { value: "30+", label: "Projets", sublabel: "réalisés" },
+                      { value: "Dev+Sec", label: "Double", sublabel: "expertise" },
                     ].map((stat, index) => (
                       <div key={index} className="space-y-1">
-                        <div className="text-3xl font-bold">{stat.value}</div>
-                        <div className="text-sm text-muted-foreground">{stat.label}</div>
+                        <div className="text-2xl lg:text-3xl font-bold bg-gradient-to-br from-foreground to-foreground/60 bg-clip-text text-transparent">{stat.value}</div>
+                        <div className="text-sm font-medium text-foreground/80">{stat.label}</div>
+                        <div className="text-xs text-muted-foreground">{stat.sublabel}</div>
                       </div>
                     ))}
                   </motion.div>
@@ -228,9 +240,9 @@ export function Hero() {
                   >
                     <Button
                       onClick={handlePortfolioClick}
-                      className="relative h-12 md:h-14 px-6 md:px-8 rounded-full overflow-hidden group"
+                      className="relative h-12 md:h-14 px-6 md:px-8 rounded-xl overflow-hidden group shadow-lg shadow-primary/20"
                     >
-                      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-blue-600 group-hover:bg-gradient-to-l transition-all duration-500"></span>
+                      <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] group-hover:bg-[position:100%_0] transition-all duration-700"></span>
                       <span className="relative flex items-center justify-center gap-2 text-primary-foreground">
                         <span>Voir mon Portfolio</span>
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -240,7 +252,7 @@ export function Hero() {
                     <Button
                       variant="outline"
                       onClick={handleBlogClick}
-                      className="h-12 md:h-14 px-6 md:px-8 rounded-full border-primary/20 hover:border-primary hover:bg-primary/5"
+                      className="h-12 md:h-14 px-6 md:px-8 rounded-xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all duration-300"
                     >
                       <span className="flex items-center justify-center gap-2">
                         <span>Lire mon Blog</span>
@@ -251,21 +263,21 @@ export function Hero() {
                 )}
               </AnimatePresence>
 
-              {/* Education Badge */}
+              {/* Education Badge - Updated Design */}
               <AnimatePresence>
                 {isLoaded && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.4 }}
-                    className="flex items-center gap-4 p-4 mb-6 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                    className="flex items-center gap-4 p-4 mb-6 rounded-xl bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent border border-border/50 backdrop-blur-sm hover:border-primary/30 transition-all duration-300"
                   >
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-blue-500/20 text-blue-500">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary">
                       <Award size={24} />
                     </div>
                     <div>
-                      <h4 className="text-base font-medium">Master 2 Technologies de l&apos;Information et Web</h4>
-                      <p className="text-sm text-muted-foreground">Université Claude Bernard Lyon 1</p>
+                      <h4 className="text-base font-semibold text-foreground">Master 2 TIW</h4>
+                      <p className="text-sm text-muted-foreground">Technologies de l&apos;Information et Web - Lyon 1</p>
                     </div>
                   </motion.div>
                 )}
@@ -287,8 +299,9 @@ export function Hero() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group flex items-center justify-center w-10 h-10 rounded-full border border-muted bg-background hover:border-primary hover:bg-primary/5 transition-colors"
-                        whileHover={{ scale: 1.1 }}
+                        className="group flex items-center justify-center w-11 h-11 rounded-xl border-2 border-border bg-background/50 backdrop-blur-sm hover:border-primary hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10 transition-all duration-300"
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.95 }}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.6 + (i * 0.1) }}
@@ -308,18 +321,18 @@ export function Hero() {
             <motion.div
               className="lg:col-span-7 space-y-6"
             >
-              {/* Tab selector */}
-              <div className="flex justify-start mb-4 overflow-x-auto pb-2">
-                <div className="inline-flex p-1 gap-1 rounded-full bg-muted">
+              {/* Tab selector - Modernized */}
+              <div className="flex justify-start mb-6 overflow-x-auto pb-2">
+                <div className="inline-flex p-1.5 gap-2 rounded-xl bg-muted/50 border border-border/50 backdrop-blur-sm">
                   {categories.map((category) => (
                     <button
                       key={category.id}
                       onClick={() => setActiveCategory(category.id as CategoryId)}
                       className={cn(
-                        "px-4 py-2.5 rounded-full text-sm font-medium transition-all flex items-center gap-2",
+                        "px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2",
                         activeCategory === category.id
-                          ? "bg-background text-foreground shadow-sm"
-                          : "bg-transparent text-muted-foreground hover:text-foreground"
+                          ? "bg-background text-foreground shadow-md shadow-primary/10 border border-border"
+                          : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-background/50"
                       )}
                     >
                       {category.icon}
@@ -346,20 +359,24 @@ export function Hero() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="group relative overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-sm p-6 hover:shadow-md transition-all duration-300"
+                      className="group relative overflow-hidden rounded-2xl border-2 border-border bg-card/50 backdrop-blur-sm p-6 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500"
                     >
                       <div className="flex items-start gap-4">
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10 text-primary border border-primary/20">
                           {skill.icon}
                         </div>
-                        <div className="space-y-2">
-                          <h3 className="text-lg font-semibold">{skill.name}</h3>
-                          <p className="text-sm text-muted-foreground">{skill.description}</p>
-                          <div className="flex gap-1">
+                        <div className="space-y-2.5 flex-1">
+                          <h3 className="text-lg font-bold text-foreground">{skill.name}</h3>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{skill.description}</p>
+                          <div className="flex gap-1.5 pt-1">
                             {[1, 2, 3, 4, 5].map((_, i) => (
                               <div
                                 key={i}
-                                className={`h-1.5 w-6 rounded-full ${i < skill.level ? 'bg-primary' : 'bg-muted'}`}
+                                className={`h-2 w-8 rounded-full transition-all duration-300 ${
+                                  i < skill.level 
+                                    ? 'bg-gradient-to-r from-primary to-secondary shadow-sm' 
+                                    : 'bg-muted'
+                                }`}
                               />
                             ))}
                           </div>
@@ -367,44 +384,44 @@ export function Hero() {
                       </div>
 
                       {/* Hover effect */}
-                      <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary/60 via-violet-500/60 to-blue-500/60 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-in-out"></div>
+                      <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_100%] transform scale-x-0 group-hover:scale-x-100 group-hover:bg-[position:100%_0] transition-all duration-700 origin-left"></div>
                     </motion.div>
                   ))}
                 </motion.div>
               </AnimatePresence>
 
-              {/* Highlights - Show specializations */}
+              {/* Highlights - Modernized cards */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.6 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                  className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-accent/5 via-orange-500/5 to-transparent border-2 border-border hover:border-accent/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 group cursor-pointer"
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
-                    <Shield size={24} />
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-orange-500/20 text-accent group-hover:scale-110 transition-transform duration-300">
+                    <Shield size={26} />
                   </div>
-                  <div>
-                    <h4 className="text-base font-medium">En formation DevSecOps</h4>
+                  <div className="flex-1">
+                    <h4 className="text-base font-bold text-foreground mb-1">Expertise DevSecOps</h4>
                     <p className="text-sm text-muted-foreground">OWASP • Sécurité Web • Évaluation des risques</p>
                   </div>
-                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
+                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.7 }}
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card/30 border border-border/50 backdrop-blur-sm"
+                  className="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-primary/5 via-secondary/5 to-transparent border-2 border-border hover:border-primary/30 backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 group cursor-pointer"
                 >
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-violet-500/20 text-violet-500">
-                    <Zap size={24} />
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <Zap size={26} />
                   </div>
-                  <div>
-                    <h4 className="text-base font-medium">Outils DevOps</h4>
-                    <p className="text-sm text-muted-foreground">RabbitMQ • Prometheus • Vault • Terraform</p>
+                  <div className="flex-1">
+                    <h4 className="text-base font-bold text-foreground mb-1">Stack DevOps</h4>
+                    <p className="text-sm text-muted-foreground">Docker • K8s • Terraform • CI/CD</p>
                   </div>
-                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground" />
+                  <ChevronRight className="ml-auto h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-300" />
                 </motion.div>
               </div>
             </motion.div>
