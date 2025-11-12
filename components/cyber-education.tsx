@@ -143,7 +143,7 @@ export function CyberEducation() {
                 {/* Tags */}
                 <div>
                   <div className="flex flex-wrap gap-2">
-                    {edu.tags.map((tag, i) => {
+                    {edu.tags?.map((tag, i) => {
                       const isHighlightTag = tag.includes("ANSSI") || tag.includes("Major") || tag.includes("tiers") || tag.includes("Label");
 
                       return (
