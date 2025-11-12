@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import {
   Code,
@@ -83,11 +83,6 @@ const expertiseAreas = [
     iconBg: "from-warning/20 to-warning/10"
   },
 ];
-    accentColor: "bg-cyan-500/5",
-    borderColor: "group-hover:border-cyan-500/40",
-    iconBg: "from-cyan-500/10 to-blue-500/10"
-  },
-];
 
 export function MyExpertise() {
   const [ref, inView] = useInView({
@@ -97,12 +92,6 @@ export function MyExpertise() {
 
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const backgroundY = useTransform(scrollYProgress, (latest) => `${latest * 20}%`);
 
   return (
     <motion.section
@@ -152,14 +141,8 @@ export function MyExpertise() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
           >
-            Développeur Full Stack avec ~2 ans d&apos;expérience et étudiant en cybersécurité. 
+            Développeur Full Stack avec ~2 ans d&apos;expérience et étudiant en cybersécurité.
             Passionné par l&apos;apprentissage des technologies modernes et des bonnes pratiques de sécurité.
-          </motion.p>
-            animate={inView ? { y: 0, opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto"
-          >
-            Une expertise complète en développement et cybersécurité pour créer des solutions digitales robustes, performantes et sécurisées.
           </motion.p>
         </div>
 
@@ -287,7 +270,7 @@ export function MyExpertise() {
               <div className="flex-grow">
                 <h3 className="text-xl font-bold mb-2 text-foreground">Formation Continue & Veille Technologique</h3>
                 <p className="text-base text-muted-foreground leading-relaxed">
-                  Apprentissage constant des nouvelles technologies et meilleures pratiques en DevSecOps, 
+                  Apprentissage constant des nouvelles technologies et meilleures pratiques en DevSecOps,
                   à travers certifications professionnelles, workshops et contributions open-source.
                 </p>
               </div>

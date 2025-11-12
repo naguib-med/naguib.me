@@ -53,7 +53,7 @@ export function DualExpertiseBanner() {
 
                 {/* Description */}
                 <p className="text-muted-foreground mb-6 leading-relaxed">
-                  Création d'applications web modernes et performantes avec une maîtrise complète 
+                  Création d&apos;applications web modernes et performantes avec une maîtrise complète 
                   du stack Fullstack.
                 </p>
 

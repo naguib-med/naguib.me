@@ -11,7 +11,6 @@ import {
   Building,
   ChevronRight,
   Award,
-  Lock,
   Terminal,
   CheckCircle2,
 } from "lucide-react";
@@ -80,7 +79,7 @@ export function CyberExperience() {
           <div className="space-y-12">
             {experiences.map((exp, index) => {
               const Icon = iconMap[exp.icon as keyof typeof iconMap] || Briefcase;
-              
+
               return (
                 <motion.div
                   key={exp.id}
@@ -91,18 +90,16 @@ export function CyberExperience() {
                   className="relative pl-24"
                 >
                   {/* Timeline dot */}
-                  <div className={`absolute left-5 top-8 h-8 w-8 rounded-xl ${
-                    exp.highlight 
-                      ? "bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/30" 
-                      : "bg-gradient-to-br from-muted to-muted-foreground/20"
-                  } flex items-center justify-center border-4 border-background z-10`}>
+                  <div className={`absolute left-5 top-8 h-8 w-8 rounded-xl ${exp.highlight
+                    ? "bg-gradient-to-br from-accent to-primary shadow-lg shadow-accent/30"
+                    : "bg-gradient-to-br from-muted to-muted-foreground/20"
+                    } flex items-center justify-center border-4 border-background z-10`}>
                     <Icon className="h-4 w-4 text-white" />
                   </div>
 
                   {/* Card */}
-                  <div className={`cyber-border rounded-2xl border-2 ${
-                    exp.highlight ? "border-accent/30" : "border-border"
-                  } bg-card backdrop-blur-sm p-8 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-500 group`}>
+                  <div className={`cyber-border rounded-2xl border-2 ${exp.highlight ? "border-accent/30" : "border-border"
+                    } bg-card backdrop-blur-sm p-8 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-500 group`}>
                     {exp.highlight && (
                       <div className="absolute top-6 right-6">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-accent to-accent/80 text-white text-xs font-bold shadow-lg shadow-accent/30">
@@ -183,9 +180,9 @@ export function CyberExperience() {
                             devops: "from-success/10 to-success/5 border-success/20 text-success",
                             default: "from-muted to-muted/50 border-border text-foreground",
                           };
-                          
+
                           const colorClass = colorMap[tech.type as keyof typeof colorMap] || colorMap.default;
-                          
+
                           return (
                             <span
                               key={i}
@@ -216,8 +213,6 @@ export function CyberExperience() {
             Découvrez plus en détail mon parcours et mes compétences
           </p>
           <Button
-            variant="outline"
-            size="lg"
             className="rounded-2xl border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300 font-bold"
           >
             <Terminal className="h-5 w-5 mr-2" />
@@ -230,14 +225,15 @@ export function CyberExperience() {
   );
 }
 
-// Missing Button import - adding inline
-function Button({ 
-  children, 
-  variant = "default", 
-  size = "default", 
-  className = "", 
-  ...props 
-}: any) {
+function Button({
+  children,
+  className = "",
+  ...props
+}: {
+  children: React.ReactNode;
+  className?: string;
+  [key: string]: unknown;
+}) {
   return (
     <button
       className={`inline-flex items-center justify-center gap-2 px-6 py-3 ${className}`}

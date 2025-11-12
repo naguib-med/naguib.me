@@ -18,7 +18,6 @@ import {
   GraduationCap,
   Briefcase,
   Award,
-  CheckCircle2,
   ShieldCheck,
   KeyRound,
   FileSearch,

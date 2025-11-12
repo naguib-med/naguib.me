@@ -24,7 +24,6 @@ import {
   Layers,
   Layout,
   Cloud,
-  BookOpen,
   Award
 } from "lucide-react";
 
@@ -197,8 +196,8 @@ export function Hero() {
                     </h1>
 
                     <p className="text-lg text-muted-foreground leading-relaxed">
-                      Ingénieur spécialisé dans le développement d&apos;applications web sécurisées 
-                      et performantes. J&apos;intègre les principes de sécurité dès la conception 
+                      Ingénieur spécialisé dans le développement d&apos;applications web sécurisées
+                      et performantes. J&apos;intègre les principes de sécurité dès la conception
                       pour créer des solutions robustes et fiables.
                     </p>
                   </motion.div>
@@ -372,11 +371,10 @@ export function Hero() {
                             {[1, 2, 3, 4, 5].map((_, i) => (
                               <div
                                 key={i}
-                                className={`h-2 w-8 rounded-full transition-all duration-300 ${
-                                  i < skill.level 
-                                    ? 'bg-gradient-to-r from-primary to-secondary shadow-sm' 
+                                className={`h-2 w-8 rounded-full transition-all duration-300 ${i < skill.level
+                                    ? 'bg-gradient-to-r from-primary to-secondary shadow-sm'
                                     : 'bg-muted'
-                                }`}
+                                  }`}
                               />
                             ))}
                           </div>

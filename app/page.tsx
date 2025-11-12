@@ -1,11 +1,8 @@
 "use client";
 
-import { Hero } from "@/components/hero";
 import { FeaturedProjects } from "@/components/featured-projects";
 import LatestBlog from "@/components/latest-blog";
-import { Experience } from "@/components/experience";
 import { CallToAction } from "@/components/call-to-action";
-import { Education } from "@/components/education";
 import { CyberHero } from "@/components/cyber-hero";
 import { DualExpertiseBanner } from "@/components/dual-expertise-banner";
 import { CyberExperience } from "@/components/cyber-experience";
